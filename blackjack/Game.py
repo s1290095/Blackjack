@@ -3,6 +3,7 @@ from Player import Player  # Playerクラスも同様にインポート
 from Dealer import Dealer
 from BS_package.BSPlayer import BSPlayer
 from CC_package.CCPlayer import CCPlayer
+from RandomPlayer import RandomPlayer
 
 class Game:
     def __init__(self):
@@ -10,6 +11,7 @@ class Game:
         self.player = Player()
         self.bs_player = BSPlayer()
         self.cc_player = CCPlayer()
+        self.random_player = RandomPlayer()
         self.dealer = Dealer()
         self.judgment = 0  # 1:勝ち，0:引き分け, -1:負け
         self.game_count = 0
@@ -20,6 +22,9 @@ class Game:
         for card in self.bs_player.hand.hand:
             self.cc_player.discards.add_card(card)
 
+        for card in self.random_player.hand.hand:
+            self.cc_player.discards.add_card(card)
+
         for card in self.dealer.hand.hand:
             self.cc_player.discards.add_card(card)
             
@@ -27,6 +32,7 @@ class Game:
         self.player.init_player()
         self.bs_player.init_player()
         self.cc_player.init_player()
+        self.random_player.init_player()
         self.dealer.init_dealer()
         self.player.done = False
 
@@ -39,6 +45,7 @@ class Game:
         print(f"BSプレイヤーのBET額：{self.bs_player.chip.bet}")
         self.cc_player.bet()
         print(f"CCプレイヤーのBET額：{self.cc_player.chip.bet}")
+        self.random_player.bet()
 
     def deal(self, n=2):
         # Player, Dealerにカードを配る
@@ -47,6 +54,7 @@ class Game:
                 self.player.deal(self.deck.draw_card())
             self.bs_player.deal(self.deck.draw_card())
             self.cc_player.deal(self.deck.draw_card())
+            self.random_player.deal(self.deck.draw_card())
             self.dealer.deal(self.deck.draw_card())
 
     # 機械エージェントのアクション
@@ -55,6 +63,12 @@ class Game:
         while not player.done:
             action = player.action(self.dealer.hand.hand[0].get_point())
             self.player_step(action, player)
+
+    # ランダムエージェントのアクション
+    def random_player_turn(self):
+        while not self.random_player.done:
+            action = self.random_player.action()
+            self.player_step(action, self.random_player)
 
     def player_turn(self):
         # プレイヤーのターン処理
@@ -95,6 +109,7 @@ class Game:
             self.player.judge(self.dealer)
         self.bs_player.judge(self.dealer)
         self.cc_player.judge(self.dealer)
+        self.random_player.judge(self.dealer)
 
     def pay(self):
         if self.player.is_human == True:
@@ -103,3 +118,4 @@ class Game:
         print(f"BSプレイヤーの現在のチップ数：{self.bs_player.chip.balance}")
         self.cc_player.pay_chip()
         print(f"CCプレイヤーの現在のチップ数：{self.cc_player.chip.balance}")
+        self.random_player.pay_chip()
