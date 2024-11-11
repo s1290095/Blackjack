@@ -32,9 +32,9 @@ class Hand:
         # 手札がBUSTかどうか判定
         return self.sum_point() > 21
     
+    # 手札がペアハンドか
     def check_pair_hand(self):
-        # 手札がペアハンドか
-        if len(self.hand) == 1:
+        if len(self.hand) != 2:
             return
 
         card1 = self.hand[0]

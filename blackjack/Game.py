@@ -98,7 +98,3 @@ class Game:
             self.player.pay_chip()
         self.bs_player.pay_chip()
         self.cc_player.pay_chip()
-
-    def calcurate_win_rate(self, game_num):
-        self.bs_player.calcurate_win_rate(game_num)
-        self.cc_player.calcurate_win_rate(game_num)

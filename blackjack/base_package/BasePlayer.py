@@ -12,7 +12,6 @@ class BasePlayer:
       self.win_num = 0       # 勝った回数
       self.lose_num = 0      # 負けた回数
       self.draw_num = 0      # 引き分け回数
-      self.win_rate = 0      # 勝率
       self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
 
   def init_player(self):
@@ -75,6 +74,3 @@ class BasePlayer:
           self.chip.pay_chip_lose()
       else:
           self.chip.pay_chip_push()
-
-  def calcurate_win_rate(self, game_num):
-      self.win_rate = self.win_num / game_num
