@@ -12,7 +12,6 @@ class BasePlayer:
       self.win_num = 0       # 勝った回数
       self.lose_num = 0      # 負けた回数
       self.draw_num = 0      # 引き分け回数
-      self.win_rate = 0      # 勝率
       self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
 
   def init_player(self):
@@ -32,11 +31,13 @@ class BasePlayer:
       # Hit時の処理（カードを引き、バスト判定）
       self.hand.add_card(card)
       self.hit_flag = True
+      print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
       if self.hand.is_bust():
           self.done = True  # バストした場合、ターン終了
 
   def stand(self):
       # Stand時の処理
+      self.hand.check_blackjack()
       self.done = True
 
   def double_down(self, card):
@@ -70,11 +71,12 @@ class BasePlayer:
   def pay_chip(self):
       # Chipの精算
       if self.judgment == 1:
-          self.chip.pay_chip_win()
+          self.chip.pay_chip_win(self.hand.is_blackjack)
       elif self.judgment == -1:
           self.chip.pay_chip_lose()
       else:
           self.chip.pay_chip_push()
 
-  def calcurate_win_rate(self, game_num):
-      self.win_rate = self.win_num / game_num
+    # 払い戻し金額/総BET額で算出されるペイアウト率
+  def get_payput_ratio(self):
+      return (self.chip.total_refund_bet / self.chip.total_bet) * 100

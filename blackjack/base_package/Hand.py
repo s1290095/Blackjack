@@ -5,7 +5,8 @@ class Hand:
     def __init__(self):
         self.hand = []
         self.is_soft_hand = False
-        self.is_pair =False
+        self.is_pair = False
+        self.is_blackjack = False
 
     def add_card(self, card):
         # 手札にカードを加える処理
@@ -16,6 +17,11 @@ class Hand:
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
         self.is_soft_hand = any(card.rank == 1 for card in self.hand)  # Aが含まれているとソフトハンド
+
+    def check_blackjack(self):
+        if self.sum_point() == 21:
+            print("ブラックジャックだ！")
+            self.is_blackjack = True
 
     def sum_point(self):
         # 手札のポイントを計算
@@ -32,9 +38,9 @@ class Hand:
         # 手札がBUSTかどうか判定
         return self.sum_point() > 21
     
+    # 手札がペアハンドか
     def check_pair_hand(self):
-        # 手札がペアハンドか
-        if len(self.hand) == 1:
+        if len(self.hand) != 2:
             return
 
         card1 = self.hand[0]
