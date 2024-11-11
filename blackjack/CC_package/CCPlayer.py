@@ -20,7 +20,6 @@ class CCPlayer(BasePlayer):
     # 捨てカードのハイローでBET額を決定
     def bet(self):
         bet = self.discards.decide_bet()
-        print(f"ハイロー：{self.discards.high_row}")
         self.chip.bet_chip(bet)
 
     def deal(self, card):

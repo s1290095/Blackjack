@@ -19,7 +19,7 @@ class Dealer:
     def hit(self, card):
         # Hit時の処理（カードを引き、バスト判定）
         self.hand.add_card(card)
+        print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
         if self.hand.is_bust():
-            if self.message_on:
-                print("バーストしました")
+            print("バーストしました")
             self.done = True  # バストした場合、ターン終了

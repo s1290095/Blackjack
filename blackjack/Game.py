@@ -36,7 +36,9 @@ class Game:
         if self.player.is_human == True:
             self.player.bet()
         self.bs_player.bet()
+        print(f"BSプレイヤーのBET額：{self.bs_player.chip.bet}")
         self.cc_player.bet()
+        print(f"CCプレイヤーのBET額：{self.cc_player.chip.bet}")
 
     def deal(self, n=2):
         # Player, Dealerにカードを配る
@@ -49,8 +51,8 @@ class Game:
 
     # 機械エージェントのアクション
     def mc_player_turn(self, player):
+        print(f"手札: {player.hand.hand} 合計: {player.hand.sum_point()}")
         while not player.done:
-            print(f"手札: {player.hand.hand} 合計: {player.hand.sum_point()}")
             action = player.action(self.dealer.hand.hand[0].get_point())
             self.player_step(action, player)
 
@@ -81,6 +83,7 @@ class Game:
 
     def dealer_turn(self):
         # Dealerがポイントが17以上になるまでカードを引く
+        print(f"手札: {self.dealer.hand.hand} 合計: {self.dealer.hand.sum_point()}")
         while self.dealer.hand.sum_point() < 17:
             self.dealer.hit(self.deck.draw_card())
 
@@ -97,4 +100,6 @@ class Game:
         if self.player.is_human == True:
             self.player.pay_chip()
         self.bs_player.pay_chip()
+        print(f"BSプレイヤーの現在のチップ数：{self.bs_player.chip.balance}")
         self.cc_player.pay_chip()
+        print(f"CCプレイヤーの現在のチップ数：{self.cc_player.chip.balance}")

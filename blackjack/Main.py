@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def main():
     game = Game()  # Gameクラスのインスタンスを生成
-    N = 10000
+    N = 8000
     bs_player = game.bs_player
     cc_player = game.cc_player
 
@@ -20,8 +20,11 @@ def main():
         game.bet()              # 賭ける
         game.deal()             # カードを配る
         game.player_turn()      # プレイヤーのターン
+        print("BSプレイヤーのターンです")
         game.mc_player_turn(bs_player)   # BSプレイヤーのターン
+        print("CCプレイヤーのターンです")
         game.mc_player_turn(cc_player)   # CCプレイヤーのターン
+        print("ディーラーのターンです")
         game.dealer_turn()      # ディーラーのターン
         game.judge()            # 勝敗の判定
         game.pay()              # チップの精算
@@ -32,11 +35,11 @@ def main():
             break
     
     print("BlackJackを終了します")
-    print(f"{game.game_count}回ゲームをしました")
+    print(f"{game.game_count+1}回ゲームをしました")
     print("")
-    print(f"bsplayerの総BET数：{bs_player.chip.balance}, bsplayerの勝率：{bs_player.win_rate}")
+    print(f"bsplayerの総BET数：{bs_player.chip.balance}, ペイアウト率：{bs_player.get_payput_ratio()}")
     print("")
-    print(f"ccplayerの総BET数：{cc_player.chip.balance}, ccplayerの勝率：{cc_player.win_rate}")
+    print(f"ccplayerの総BET数：{cc_player.chip.balance}, ペイアウト率：{cc_player.get_payput_ratio()}")
 
     # それぞれの戦略エージェントの総BET数の推移データ
     fig, ax = plt.subplots()

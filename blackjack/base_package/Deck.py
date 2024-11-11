@@ -7,7 +7,7 @@ class Deck:
     カードがシャッフルされたデッキ（山札を生成）
     '''
     def __init__(self):
-        self.NUM_DECK = 6
+        self.NUM_DECK = 1
         self.cards = [Card(suit, rank) \
             for suit in Card.SUITS \
             for rank in Card.RANKS]
