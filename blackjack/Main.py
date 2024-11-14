@@ -1,10 +1,12 @@
 from Game import Game  # Gameクラスをインポート
 from base_package.Deck import Deck
+from GameManager import GameManager
 import matplotlib.pyplot as plt
 
 def main():
     game = Game()  # Gameクラスのインスタンスを生成
-    N = 1000
+    game_manager = GameManager()
+    N = 100
     bs_player = game.bs_player
     cc_player = game.cc_player
     random_player = game.random_player
@@ -15,20 +17,20 @@ def main():
     data_ra = [] # ランダムエージェントの総BET額の推移
 
     for cnt in range(N):
-        if len(game.deck.cards) < 16:
+        if len(game.deck.cards) < 52:
             game.deck = Deck()  # デッキ枚数をリセット
             cc_player.discards.clear_cards()
         game.reset_game()       # いろいろをリセットする
         game.bet()              # 賭ける
         game.deal()             # カードを配る
         game.player_turn()      # プレイヤーのターン
-        print("BSプレイヤーのターンです")
+        game_manager.print("BSプレイヤーのターンです")
         game.mc_player_turn(bs_player)   # BSプレイヤーのターン
-        print("CCプレイヤーのターンです")
+        game_manager.print("CCプレイヤーのターンです")
         game.mc_player_turn(cc_player)   # CCプレイヤーのターン
-        print("ランダムプレイヤーのターンです")
+        game_manager.print("ランダムプレイヤーのターンです")
         game.random_player_turn()   # CCプレイヤーのターン
-        print("ディーラーのターンです")
+        game_manager.print("ディーラーのターンです")
         game.dealer_turn()      # ディーラーのターン
         game.judge()            # 勝敗の判定
         game.pay()              # チップの精算
@@ -42,9 +44,9 @@ def main():
     print("BlackJackを終了します")
     print(f"{game.game_count+1}回ゲームをしました")
     print("")
-    print(f"bsplayerの総BET数：{bs_player.chip.balance}, ペイアウト率：{bs_player.get_payput_ratio()}")
+    print(f"bsplayerの総BET数：{bs_player.chip.balance}, ペイアウト率：{bs_player.get_payput_ratio()}, split回数：{bs_player.split_num}")
     print("")
-    print(f"ccplayerの総BET数：{cc_player.chip.balance}, ペイアウト率：{cc_player.get_payput_ratio()}")
+    print(f"ccplayerの総BET数：{cc_player.chip.balance}, ペイアウト率：{cc_player.get_payput_ratio()}, split回数：{cc_player.split_num}")
     print("")
     print(f"randomplayerの総BET数：{random_player.chip.balance}, ペイアウト率：{random_player.get_payput_ratio()}")
 
@@ -52,7 +54,7 @@ def main():
     fig, ax = plt.subplots()
     ax.plot(data_bs, "r--", label="basic_strategy")
     ax.plot(data_cc, "b--", label="card_counting")
-    ax.plot(data_ra, "y--", label="random")
+    # ax.plot(data_ra, "y--", label="random")
     ax.legend()
     plt.show()
 

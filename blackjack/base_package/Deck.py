@@ -1,13 +1,15 @@
 import random
 import copy
 from base_package.Card import Card
+from GameManager import GameManager
 
 class Deck:
     '''
     カードがシャッフルされたデッキ（山札を生成）
     '''
     def __init__(self):
-        self.NUM_DECK = 6 # 必要に応じて変える
+        gamemanager = GameManager()
+        self.NUM_DECK = gamemanager.deck_num # 必要に応じて変える
         self.cards = [Card(suit, rank) \
             for suit in Card.SUITS \
             for rank in Card.RANKS]

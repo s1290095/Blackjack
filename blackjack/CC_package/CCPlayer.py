@@ -25,4 +25,5 @@ class CCPlayer(BasePlayer):
     def deal(self, card):
         # 最初に2枚配る処理
         self.hand.add_card(card)
+        self.hand.check_pair_hand()
         self.discards.add_card(card)
