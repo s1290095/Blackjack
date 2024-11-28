@@ -1,27 +1,26 @@
 from base_package.Hand import Hand
 from base_package.Chip import Chip
+from GameManager import GameManager
 
 class BasePlayer:
   def __init__(self):
       self.hand = Hand()
       self.chip = Chip()
+      self.game_manager = GameManager()
       self.done = False  # Playerのターン終了を示すフラグ
-      self.hit_flag = False  # Player が Hit を選択済みかどうか示すフラグ
-      self.is_human = False  # True:人がプレイ，False:プレイしない
       self.judgement = 0     # 1:勝ち，0:引き分け, -1:負け
       self.win_num = 0       # 勝った回数
       self.lose_num = 0      # 負けた回数
       self.draw_num = 0      # 引き分け回数
-      self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
+      self.split_num = 0     # splitの回数
 
   def init_player(self):
       # 手札や各フラグを初期化する
       self.hand = Hand()
       self.done = False
-      self.hit_flag = False
 
   def bet(self):
-    self.chip.bet_chip(bet=10)
+    self.chip.bet_chip(bet=5)
 
   def deal(self, card):
       # 最初に2枚配る処理
@@ -30,8 +29,7 @@ class BasePlayer:
   def hit(self, card):
       # Hit時の処理（カードを引き、バスト判定）
       self.hand.add_card(card)
-      self.hit_flag = True
-      print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
+      self.game_manager.print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
       if self.hand.is_bust():
           self.done = True  # バストした場合、ターン終了
 
