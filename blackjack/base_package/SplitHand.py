@@ -1,12 +1,9 @@
-from base_package.SplitHand import SplitHand
-
-class Hand:
+class SplitHand:
     """
     手札クラス
     """
     def __init__(self):
         self.hand = []
-        self.split_hand = SplitHand()
         self.is_soft_hand = False
         self.is_pair = False
         self.is_blackjack = False

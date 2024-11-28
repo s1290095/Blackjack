@@ -12,4 +12,12 @@ class BSPlayer(BasePlayer):
     def action(self, dealer_upcard):
         hand = self.hand
         player_hand = hand.sum_point()
-        return self.basic_strategy.get_action(hand.is_pair, hand.is_soft_hand, player_hand, dealer_upcard)
+        if hand.split_done:
+            return self.basic_strategy.get_action(False, hand.is_soft_hand, player_hand, dealer_upcard)
+        else :
+            return self.basic_strategy.get_action(hand.is_pair, hand.is_soft_hand, player_hand, dealer_upcard)
+    
+    def split_action(self, dealer_upcard):
+        hand = self.hand.split_hand
+        player_hand = hand.sum_point()
+        return self.basic_strategy.get_action(False, hand.is_soft_hand, player_hand, dealer_upcard)
