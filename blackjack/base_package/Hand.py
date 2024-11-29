@@ -17,6 +17,7 @@ class Hand:
         # 手札にカードを加える処理
         self.hand.append(card)
         self.check_soft_hand()
+        self.check_pair_hand()
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする

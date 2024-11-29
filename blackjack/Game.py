@@ -61,9 +61,10 @@ class Game:
         while not player.done:
             action = player.action(self.dealer.hand.hand[0].get_point())
             self.player_step(action, player)
-            while not player.hand.split_done:
-                action = player.split_action(self.dealer.hand.hand[0].get_point())
-                self.player_split_step(action, player)
+            if player.hand.is_split:
+                while not player.hand.split_done:
+                    action = player.split_action(self.dealer.hand.hand[0].get_point())
+                    self.player_split_step(action, player)
 
     def player_turn(self):
         # プレイヤーのターン処理

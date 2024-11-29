@@ -5,18 +5,25 @@ class BasePlayer:
     def __init__(self):
         self.hand = Hand()
         self.chip = Chip()
+        self.split_chip = Chip()
         self.done = False  # Playerのターン終了を示すフラグ
         self.is_human = False  # True:人がプレイ，False:プレイしない
+        self.is_surrender = False # 降参したか
+        self.is_split_surrender = False # 降参したか（split）
         self.judgement = 0     # 1:勝ち，0:引き分け, -1:負け
+        self.split_judgement = 0
         self.win_num = 0       # 勝った回数
         self.lose_num = 0      # 負けた回数
         self.draw_num = 0      # 引き分け回数
+        self.split_num = 0
         self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
 
     def init_player(self):
         # 手札や各フラグを初期化する
         self.hand = Hand()
         self.done = False
+        self.is_surrender = False
+        self.is_split_surrender = False
 
     def bet(self):
         self.chip.bet_chip(bet=10)
@@ -47,11 +54,14 @@ class BasePlayer:
         # Surrender時の処理
         self.done = True
         self.chip.bet /= 2  # 賭け金の半分が返却される
+        self.is_surrender = True
 
     def split(self, card):
+        self.split_chip.bet_chip(self.chip.bet)
         self.hand.split_hand.add_card(self.hand.hand.pop(-1))
         self.hand.split_hand.add_card(card)
         self.hand.is_split = True
+        self.split_num += 1
 
     def split_hit(self, card):
         # Hit時の処理（カードを引き、バスト判定）
@@ -67,14 +77,15 @@ class BasePlayer:
 
     def split_double_down(self, card):
         # Double down時の処理（賭け金2倍でカードを1枚追加して終了）
-        self.chip.bet_chip(self.chip.bet * 2) #TODO あとで修正
+        self.split_chip.bet_chip(self.split_chip.bet * 2)
         self.split_hit(card)
         self.split_stand()
 
     def split_surrender(self):
         # Surrender時の処理
         self.hand.split_done = True
-        self.chip.bet /= 2  # 賭け金の半分が返却される TODO 修正
+        self.split_chip.bet /= 2  # 賭け金の半分の半分が返却される
+        self.is_split_surrender = True
     
     def judge(self, dealer):
         if self.hand.is_bust():
@@ -92,6 +103,11 @@ class BasePlayer:
         else:
             self.draw_num += 1
             self.judgment = 0
+        if self.is_surrender:
+            self.judgement = 0
+
+        if self.hand.is_split:
+            self.split_judge(dealer)
 
     def pay_chip(self):
         # Chipの精算
@@ -102,6 +118,44 @@ class BasePlayer:
         else:
             self.chip.pay_chip_push()
 
+        if self.hand.is_split:
+            self.split_pay_chip()
+
+    def split_judge(self, dealer):
+        split_hand = self.hand.split_hand
+        if split_hand.is_bust():
+            self.lose_num += 1
+            self.split_judgment = -1
+        elif dealer.hand.is_bust():
+            self.win_num += 1
+            self.split_judgment = 1
+        elif split_hand.calc_final_point() > dealer.hand.calc_final_point():
+            self.win_num += 1
+            self.split_judgment = 1
+        elif split_hand.calc_final_point() < dealer.hand.calc_final_point():
+            self.lose_num += 1
+            self.split_judgment = -1
+        else:
+            self.draw_num += 1
+            self.split_judgment = 0
+        if self.is_surrender:
+            self.split_judgment = 0
+
+    def split_pay_chip(self):
+        # Chipの精算
+        if self.split_judgment == 1:
+            self.split_chip.pay_chip_win(self.hand.split_hand.is_blackjack)
+        elif self.split_judgment == -1:
+            self.split_chip.pay_chip_lose()
+        else:
+            self.split_chip.pay_chip_push()
+
         # 払い戻し金額/総BET額で算出されるペイアウト率
     def get_payput_ratio(self):
-        return (self.chip.total_refund_bet / self.chip.total_bet) * 100
+        chip = self.chip
+        split_chip = self.split_chip
+        print(f"合計BET額:{chip.total_bet}, 返還額:{chip.total_refund_bet}, split回数:{self.split_num}")
+        chip.total_refund_bet += split_chip.total_refund_bet
+        chip.total_bet += split_chip.total_bet
+        print(f"合計BET額:{chip.total_bet}, 返還額:{chip.total_refund_bet}")
+        return (chip.total_refund_bet / chip.total_bet) * 100
