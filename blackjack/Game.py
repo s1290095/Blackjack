@@ -28,6 +28,12 @@ class Game:
 
         for card in self.dealer.hand.hand:
             self.cc_player.discards.add_card(card)
+
+        for card in self.bs_player.hand.split_hand.hand:
+            self.cc_player.discards.add_card(card)
+
+        for card in self.cc_player.hand.split_hand.hand:
+            self.cc_player.discards.add_card(card)
             
         # Player, Dealerの手札をリセット
         self.player.init_player()
@@ -64,6 +70,10 @@ class Game:
         while not player.done:
             action = player.action(self.dealer.hand.hand[0].get_point())
             self.player_step(action, player)
+            if player.hand.is_split:
+                while not player.hand.split_done:
+                    action = player.split_action(self.dealer.hand.hand[0].get_point())
+                    self.player_split_step(action, player)
 
     # ランダムエージェントのアクション
     def random_player_turn(self):
@@ -94,8 +104,19 @@ class Game:
         elif action == "sr":
             player.surrender()
         elif action == "sp":
-            player.split_num += 1
-            player.done = True
+            player.split(self.deck.draw_card()) # splitの手札にカードを追加
+            player.hand.add_card(self.deck.draw_card()) # 通常の手札にカードを追加
+
+    def player_split_step(self, action, player):
+        # Stand, Hit, Double down, Surrender, splitに応じた処理
+        if action == "h":
+            player.split_hit(self.deck.draw_card())
+        elif action == "st":
+            player.split_stand()
+        elif action == "dd":
+            player.split_double_down(self.deck.draw_card())
+        elif action == "sr":
+            player.split_surrender()
 
     def dealer_turn(self):
         # Dealerがポイントが17以上になるまでカードを引く

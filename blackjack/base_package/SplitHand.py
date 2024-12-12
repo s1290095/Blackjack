@@ -1,12 +1,9 @@
-from base_package.SplitHand import SplitHand
-
-class Hand:
+class SplitHand:
     """
     手札クラス
     """
     def __init__(self):
         self.hand = []
-        self.split_hand = SplitHand()
         self.is_soft_hand = False
         self.is_pair = False
         self.is_blackjack = False
@@ -17,7 +14,6 @@ class Hand:
         # 手札にカードを加える処理
         self.hand.append(card)
         self.check_soft_hand()
-        self.check_pair_hand()
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
@@ -25,6 +21,7 @@ class Hand:
 
     def check_blackjack(self):
         if self.sum_point() == 21:
+            print("ブラックジャックだ！")
             self.is_blackjack = True
 
     def sum_point(self):
