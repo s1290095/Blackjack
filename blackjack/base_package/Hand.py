@@ -25,7 +25,6 @@ class Hand:
 
     def check_blackjack(self):
         if self.sum_point() == 21:
-            print("ブラックジャックだ！")
             self.is_blackjack = True
 
     def sum_point(self):

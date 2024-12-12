@@ -1,8 +1,9 @@
-INITIAL_CHIP = 100000
+from GameManager import GameManager
 
 class Chip:
     def __init__(self):
-        self.balance = INITIAL_CHIP
+        self.game_manager = GameManager()
+        self.balance = self.game_manager.initial_chip
         self.bet = 0
         self.total_bet = 0 # 総BET額
         self.total_refund_bet = 0 # 総払い出し金額
@@ -17,12 +18,12 @@ class Chip:
         # 勝利時の支払い
         if is_blackjack:
             refund_bet = self.bet * 2 * 1.5
-            print(f"Bet額：{self.bet}, 返還されるBET：{refund_bet}")
+            self.game_manager.print(f"Bet額：{self.bet}, 返還されるBET：{refund_bet}")
             self.balance += refund_bet
             self.total_refund_bet += refund_bet
         else:
             refund_bet = self.bet * 2
-            print(f"Bet額：{self.bet}, 返還されるBET：{refund_bet}")
+            self.game_manager.print(f"Bet額：{self.bet}, 返還されるBET：{refund_bet}")
             self.balance += refund_bet
             self.total_refund_bet += refund_bet
 

@@ -1,5 +1,6 @@
 from base_package.Hand import Hand
 from base_package.Chip import Chip
+from GameManager import GameManager
 
 class BasePlayer:
     def __init__(self):
@@ -33,11 +34,11 @@ class BasePlayer:
         self.hand.add_card(card)
 
     def hit(self, card):
-        # Hit時の処理（カードを引き、バスト判定）
-        self.hand.add_card(card)
-        print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
-        if self.hand.is_bust():
-            self.done = True  # バストした場合、ターン終了
+      # Hit時の処理（カードを引き、バスト判定）
+      self.hand.add_card(card)
+      self.game_manager.print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
+      if self.hand.is_bust():
+          self.done = True  # バストした場合、ターン終了
 
     def stand(self):
         # Stand時の処理
