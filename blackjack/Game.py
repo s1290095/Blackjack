@@ -104,7 +104,6 @@ class Game:
         elif action == "sr":
             player.surrender()
         elif action == "sp":
-<<<<<<< HEAD
             player.split(self.deck.draw_card()) # splitの手札にカードを追加
             player.hand.add_card(self.deck.draw_card()) # 通常の手札にカードを追加
 
@@ -118,10 +117,6 @@ class Game:
             player.split_double_down(self.deck.draw_card())
         elif action == "sr":
             player.split_surrender()
-=======
-            player.split_num += 1
-            player.done = True
->>>>>>> bb422ff95ea87e0f93306acffdfdc8a5e248d8b0
 
     def dealer_turn(self):
         # Dealerがポイントが17以上になるまでカードを引く
