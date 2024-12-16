@@ -26,4 +26,4 @@ class Deck:
         return None  # カードがない場合、Noneを返す
     
     def get_num_deck(self):
-        return self.NUM_DECK
+        return len(self.cards)

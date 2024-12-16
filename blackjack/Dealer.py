@@ -8,8 +8,11 @@ class Dealer:
         self.chip = Chip()
         self.game_manager = GameManager()
 
-    def init_dealer(self):
+    def init_dealer(self, discards):
         # 手札や各フラグを初期化する
+        for hand in self.hand.hand:
+            discards.add_card(hand)
+
         self.hand = Hand()
         self.done = False
 

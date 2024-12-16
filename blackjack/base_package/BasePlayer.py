@@ -7,6 +7,8 @@ class BasePlayer:
         self.hand = Hand()
         self.chip = Chip()
         self.split_chip = Chip()
+        self.game_manager = GameManager()
+        self.hit_flag = False
         self.done = False  # Playerのターン終了を示すフラグ
         self.is_human = False  # True:人がプレイ，False:プレイしない
         self.is_surrender = False # 降参したか
@@ -19,12 +21,15 @@ class BasePlayer:
         self.split_num = 0
         self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
 
-    def init_player(self):
+    def init_player(self, discards):
         # 手札や各フラグを初期化する
+        for card in self.hand.hand:
+            discards.add_card(card)
         self.hand = Hand()
         self.done = False
         self.is_surrender = False
         self.is_split_surrender = False
+        self.hit_flag = False
 
     def bet(self):
         self.chip.bet_chip(bet=10)
@@ -35,6 +40,7 @@ class BasePlayer:
 
     def hit(self, card):
       # Hit時の処理（カードを引き、バスト判定）
+      self.hit_flag = True
       self.hand.add_card(card)
       self.game_manager.print(f"手札: {self.hand.hand} 合計: {self.hand.sum_point()}")
       if self.hand.is_bust():
