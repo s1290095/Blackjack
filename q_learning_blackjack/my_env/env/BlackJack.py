@@ -89,9 +89,9 @@ class Game:
 
     def pay(self):
         # chipの支払い
-        self.player.pay_chip()
         self.random_player1.pay_chip()
         self.random_player2.pay_chip()
+        return self.player.pay_chip()
 
     def check_deck(self):
         if self.deck.get_num_deck() <= 52:

@@ -26,11 +26,15 @@ class Chip:
             self.game_manager.print(f"Bet額：{self.bet}, 返還されるBET：{refund_bet}")
             self.balance += refund_bet
             self.total_refund_bet += refund_bet
+        return refund_bet
 
     def pay_chip_lose(self):
         # 敗北時、賭け金は減ったまま
-        pass
+        return -self.bet
 
     def pay_chip_push(self):
         # 引き分け時の支払い
+        self.total_refund_bet += self.bet
         self.balance += self.bet
+
+        return self.bet

@@ -33,4 +33,5 @@ class Chip:
 
     def pay_chip_push(self):
         # 引き分け時の支払い
+        self.total_refund_bet += self.bet
         self.balance += self.bet

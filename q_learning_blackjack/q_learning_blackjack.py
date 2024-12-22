@@ -51,26 +51,26 @@ class Agent():
             rewards = self.reward_log[-interval:]
             mean = np.round(np.mean(rewards), 3)
             std = np.round(np.std(rewards), 3)
-            print(f"Episode {episode}: 平均報酬={mean} (+/-{std})")
+            print(f"Episode {episode}: average_reward={mean} (+/-{std})")
         else:
             indices = list(range(0, len(self.reward_log), interval))
             means = [np.mean(self.reward_log[i:i + interval]) for i in indices]
             stds = [np.std(self.reward_log[i:i + interval]) for i in indices]
             plt.figure()
-            plt.title("報酬履歴")
-            plt.xlabel("エピソード")
-            plt.ylabel("報酬")
+            plt.title("reward_history")
+            plt.xlabel("episode")
+            plt.ylabel("reward")
             plt.fill_between(indices, np.array(means) - np.array(stds), np.array(means) + np.array(stds), alpha=0.2)
-            plt.plot(indices, means, label="平均報酬")
+            plt.plot(indices, means, label="average_reward")
             plt.legend()
             plt.show()
 
 class QLearningAgent(Agent):
-    def __init__(self, epsilon=0.1):
+    def __init__(self, epsilon=1):
         """Q学習エージェントの初期化"""
         super().__init__(epsilon)
 
-    def learn(self, env, episode_count=1000, gamma=0.9, learning_rate=0.1, render=False, report_interval=500):
+    def learn(self, env, output_interval, episode_count=1000, gamma=0.9, learning_rate=0.1, render=False, report_interval=500):
         """
         Q学習を実行
         :param env: 強化学習環境
@@ -85,6 +85,8 @@ class QLearningAgent(Agent):
         self.Q = defaultdict(lambda: [0] * len(actions))  # 未訪問状態のQ値は0で初期化
 
         for e in range(episode_count):
+            if e % output_interval == 0 : # output_interval回ごとにゲームをリセット
+                env.new_game()
             state = env.reset()  # 環境をリセット
             done = False
             reward_history = []
@@ -105,19 +107,21 @@ class QLearningAgent(Agent):
                 reward_history.append(reward)
 
             self.log(sum(reward_history))  # エピソードの総報酬を記録
+            self.epsilon *= 0.999 # 徐々にイプシロンを0に近づける
 
             if e % report_interval == 0 and e != 0:
                 self.show_reward_log(interval=50, episode=e)
 
+        print(f"ペイアウト率：{env.game.player.get_payput_ratio()}")
         env.close()  # 環境を終了
 
 def train():
     """
     ブラックジャック環境でQ学習を実行
     """
-    env = gym.make('BlackJack-v0')  # Blackjack環境を作成（カスタム環境を想定）
+    env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, episode_count=10000, report_interval=1000)
+    agent.learn(env, output_interval=40000, episode_count=50000, report_interval=1000)
     agent.show_reward_log(interval=500)
 
 if __name__ == "__main__":

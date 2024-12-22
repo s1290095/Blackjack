@@ -40,11 +40,14 @@ class BlackJackEnv(gym.Env):
 
         self.game.reset_game()
         self.game.bet()
-        self.game.player.chip.balance = 1000  # 学習中は所持金がゼロになることはないとする
+        # self.game.player.chip.balance = 1000  # 学習中は所持金がゼロになることはないとする
         self.game.deal()
         # self.bet_done = True
 
         return self.observe()
+    
+    def new_game(self):
+        self.game = Game()
 
     def step(self, action):
         # action を実行し，結果を返す
@@ -63,7 +66,6 @@ class BlackJackEnv(gym.Env):
             print("未定義のActionです")
             print(self.observe())
 
-        hit_flag_before_step = self.game.player.hit_flag
         self.game.player_step(action=action_str)
 
         if self.game.player.done:
@@ -73,9 +75,6 @@ class BlackJackEnv(gym.Env):
             reward = self.get_reward()
             self.game.check_deck()
             print(str(self.game.judgment) + " : " + str(reward))
-
-        elif action >= 2 and hit_flag_before_step is True:
-            reward = -1e3  # ルールに反する場合はペナルティを与える
 
         else:
             # プレーヤーのターンを継続するとき
@@ -100,9 +99,8 @@ class BlackJackEnv(gym.Env):
 
     def get_reward(self):
         # 報酬を返す
-        beforeBet = self.game.player.chip.balance
-        self.game.pay()
-        reward = beforeBet - self.game.player.chip.balance
+        refund_bet = self.game.pay()
+        reward = refund_bet
         return reward
 
     def is_done(self):
@@ -127,8 +125,15 @@ class BlackJackEnv(gym.Env):
 
         return observation
     
+    # 払い戻し金額/総BET額で算出されるペイアウト率
+    def get_payput_ratio(self):
+        total_bet = self.game.player.chip.to
+        return_bet = self.return_bet
+        print(f"合計BET額:{total_bet}, 返還額:{return_bet}")
+        print("ペイアウト率:" + (total_bet / return_bet) * 100)
+    
 # 環境を登録
 gym.envs.registration.register(
-    id='BlackJack-v0',
+    id='BlackJack-v3',
     entry_point='my_env.env.BlackJackEnv:BlackJackEnv',
 )

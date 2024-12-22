@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def main():
     game_manager = GameManager()
-    N = 10000
+    N = 30000
     num = input("使用する戦略を選んでください:1 基本戦略, 2 カードカウンティング:")
     print(num)
     label = ""
