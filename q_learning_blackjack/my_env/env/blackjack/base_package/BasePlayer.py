@@ -95,19 +95,19 @@ class BasePlayer:
     def judge(self, dealer):
         if self.hand.is_bust():
             self.lose_num += 1
-            self.judgment = -1
+            self.judgement = -1
         elif dealer.hand.is_bust():
             self.win_num += 1
-            self.judgment = 1
+            self.judgement = 1
         elif self.hand.calc_final_point() > dealer.hand.calc_final_point():
             self.win_num += 1
-            self.judgment = 1
+            self.judgement = 1
         elif self.hand.calc_final_point() < dealer.hand.calc_final_point():
             self.lose_num += 1
-            self.judgment = -1
+            self.judgement = -1
         else:
             self.draw_num += 1
-            self.judgment = 0
+            self.judgement = 0
         if self.is_surrender:
             self.judgement = 0
 
@@ -116,9 +116,9 @@ class BasePlayer:
 
     def pay_chip(self):
         # Chipの精算
-        if self.judgment == 1:
+        if self.judgement == 1:
             self.chip.pay_chip_win(self.hand.is_blackjack)
-        elif self.judgment == -1:
+        elif self.judgement == -1:
             self.chip.pay_chip_lose()
         else:
             self.chip.pay_chip_push()
@@ -130,27 +130,27 @@ class BasePlayer:
         split_hand = self.hand.split_hand
         if split_hand.is_bust():
             self.lose_num += 1
-            self.split_judgment = -1
+            self.split_judgement = -1
         elif dealer.hand.is_bust():
             self.win_num += 1
-            self.split_judgment = 1
+            self.split_judgement = 1
         elif split_hand.calc_final_point() > dealer.hand.calc_final_point():
             self.win_num += 1
-            self.split_judgment = 1
+            self.split_judgement = 1
         elif split_hand.calc_final_point() < dealer.hand.calc_final_point():
             self.lose_num += 1
-            self.split_judgment = -1
+            self.split_judgement = -1
         else:
             self.draw_num += 1
-            self.split_judgment = 0
+            self.split_judgement = 0
         if self.is_surrender:
-            self.split_judgment = 0
+            self.split_judgement = -0.5
 
     def split_pay_chip(self):
         # Chipの精算
-        if self.split_judgment == 1:
+        if self.split_judgement == 1:
             self.split_chip.pay_chip_win(self.hand.split_hand.is_blackjack)
-        elif self.split_judgment == -1:
+        elif self.split_judgement == -1:
             self.split_chip.pay_chip_lose()
         else:
             self.split_chip.pay_chip_push()

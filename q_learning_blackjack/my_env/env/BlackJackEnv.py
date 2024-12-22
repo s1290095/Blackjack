@@ -17,15 +17,13 @@ class BlackJackEnv(gym.Env):
 
         high = np.array([
             30,  # player max
-            30,  # dealer max
+            11,  # dealer max
             1,   # is_soft_hand
-            1,   # hit flag true
         ])
         low = np.array([
             2,  # player min
             1,  # dealer min
             0,  # is_soft_hand false
-            0,  # hit flag false
         ])
         self.observation_space = gym.spaces.Box(low=low, high=high)
         self.reward_range = [-10000, 10000]  # 報酬の最小値と最大値のリスト
@@ -74,7 +72,6 @@ class BlackJackEnv(gym.Env):
             self.game.judge()
             reward = self.get_reward()
             self.game.check_deck()
-            print(str(self.game.judgment) + " : " + str(reward))
 
         else:
             # プレーヤーのターンを継続するとき
@@ -99,9 +96,12 @@ class BlackJackEnv(gym.Env):
 
     def get_reward(self):
         # 報酬を返す
-        refund_bet = self.game.pay()
-        reward = refund_bet
-        return reward
+        self.game.pay()
+        player = self.game.player
+        # 勝ちかつブラックジャックの場合、1.5を返す
+        if player.judgement == 1 and player.hand.is_blackjack:
+            return 1.5
+        return player.judgement
 
     def is_done(self):
         if self.game.player.done:
@@ -110,27 +110,12 @@ class BlackJackEnv(gym.Env):
             return False
 
     def observe(self):
-        if self.game.player.done:
-            observation = tuple([
-                self.game.player.hand.calc_final_point(),
-                self.game.dealer.hand.calc_final_point(),  # Dealerのカードの合計点
-                int(self.game.player.hand.is_soft_hand),
-                int(self.game.player.hit_flag)])
-        else:
-            observation = tuple([
-                self.game.player.hand.calc_final_point(),
-                self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
-                int(self.game.player.hand.is_soft_hand),
-                int(self.game.player.hit_flag)])
+        observation = tuple([
+            self.game.player.hand.calc_final_point(),
+            self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
+            int(self.game.player.hand.is_soft_hand)])
 
         return observation
-    
-    # 払い戻し金額/総BET額で算出されるペイアウト率
-    def get_payput_ratio(self):
-        total_bet = self.game.player.chip.to
-        return_bet = self.return_bet
-        print(f"合計BET額:{total_bet}, 返還額:{return_bet}")
-        print("ペイアウト率:" + (total_bet / return_bet) * 100)
     
 # 環境を登録
 gym.envs.registration.register(

@@ -1,5 +1,7 @@
 import sys
 import os
+import csv  # CSV出力用
+from datetime import datetime
 
 # プロジェクトルートを検索パスに追加
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -115,13 +117,57 @@ class QLearningAgent(Agent):
         print(f"ペイアウト率：{env.game.player.get_payput_ratio()}")
         env.close()  # 環境を終了
 
+    def save_q_table_to_csv(self):
+        """
+        QテーブルをCSVファイルに保存（player_handでソート済み）
+        """
+        # 現在の日付をファイル名に付与
+        currentDate = datetime.now().strftime("%Y%m%d%H%M%S")
+        filepath = "table_data/q_table_" + currentDate + ".csv"
+
+        # ソート用リストを作成
+        q_table_sorted = []
+        for state, actions in self.Q.items():
+            for action, q_value in enumerate(actions):
+                # 状態をタプルに変換
+                if isinstance(state, str):
+                    states = tuple(map(int, state.strip("()").split(", ")))
+                else:
+                    states = state
+
+                # actionを行動の文字列に変換
+                if action == 0:
+                    action_str = "stand"
+                elif action == 1:
+                    action_str = "hit"
+                elif action == 2:
+                    action_str = "double down"
+                else:
+                    action_str = "surrender"
+                # ソート用リストに追加
+                q_table_sorted.append((states[0], states[1], states[2], action_str, q_value))
+
+        # player_hand（states[0]）で昇順にソート
+        q_table_sorted.sort(key=lambda x: (x[0], x[1]))
+
+        # ソート済みのデータをCSVに保存
+        with open(filepath, mode="w", newline="") as file:
+            writer = csv.writer(file)
+            # ヘッダーの書き込み
+            writer.writerow(["player_hand", "dealer_hand", "is_soft_hand", "Action", "Q-Value"])
+            for row in q_table_sorted:
+                writer.writerow(row)
+
+        print(f"ソート済みQテーブルを {filepath} に保存しました。")
+
 def train():
     """
     ブラックジャック環境でQ学習を実行
     """
     env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, output_interval=40000, episode_count=50000, report_interval=1000)
+    agent.learn(env, output_interval=790000, episode_count=800000, report_interval=1000)
+    agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.show_reward_log(interval=500)
 
 if __name__ == "__main__":

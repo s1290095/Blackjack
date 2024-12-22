@@ -14,10 +14,10 @@ class Player(BasePlayer):
     def pay_chip(self):
         # Chipの精算
         refund_bet = 0
-        if self.judgment == 1:
+        if self.judgement == 1:
             self.game_manager.print("playerの勝ちです")
             refund_bet = self.chip.pay_chip_win(self.hand.is_blackjack)
-        elif self.judgment == -1:
+        elif self.judgement == -1:
             self.game_manager.print("playerの負けです")
             refund_bet = self.chip.pay_chip_lose()
         else:

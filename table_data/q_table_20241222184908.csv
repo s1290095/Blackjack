@@ -1,0 +1,1577 @@
+player_hand,dealer_hand,is_soft_hand,Action,Q-Value
+4,1,0,stand,-9.55
+4,1,0,hit,0
+4,1,0,double down,0
+4,1,0,surrender,33.96732604650501
+4,2,0,stand,10.675825739855007
+4,2,0,hit,0.04050000000000001
+4,2,0,double down,0
+4,2,0,surrender,0
+4,3,0,stand,0
+4,3,0,hit,0
+4,3,0,double down,0
+4,3,0,surrender,24.504975050000002
+4,4,0,stand,0
+4,4,0,hit,20.457906762809703
+4,4,0,double down,0
+4,4,0,surrender,0
+4,5,0,stand,-10.0
+4,5,0,hit,41.195666704675105
+4,5,0,double down,0
+4,5,0,surrender,0
+4,6,0,stand,0
+4,6,0,hit,49.54876970882849
+4,6,0,double down,21.436307350000003
+4,6,0,surrender,0
+4,7,0,stand,-10.0
+4,7,0,hit,19.744634602797472
+4,7,0,double down,-16.10827613676384
+4,7,0,surrender,0
+4,8,0,stand,0
+4,8,0,hit,35.11230419672668
+4,8,0,double down,0
+4,8,0,surrender,0
+4,9,0,stand,-10.0
+4,9,0,hit,58.10635086584481
+4,9,0,double down,-19.104499999999998
+4,9,0,surrender,0
+4,10,0,stand,66.31734212384819
+4,10,0,hit,0
+4,10,0,double down,-12.193928246284809
+4,10,0,surrender,0
+5,1,0,stand,0
+5,1,0,hit,62.92038248795647
+5,1,0,double down,0
+5,1,0,surrender,0
+5,2,0,stand,-10.0
+5,2,0,hit,78.50084862751949
+5,2,0,double down,0
+5,2,0,surrender,0
+5,3,0,stand,0
+5,3,0,hit,0
+5,3,0,double down,0
+5,3,0,surrender,19.701995
+5,4,0,stand,0
+5,4,0,hit,79.35962162894005
+5,4,0,double down,0
+5,4,0,surrender,0
+5,5,0,stand,0
+5,5,0,hit,0
+5,5,0,double down,133.0409464798902
+5,5,0,surrender,0
+5,6,0,stand,0
+5,6,0,hit,90.47606601031978
+5,6,0,double down,0
+5,6,0,surrender,0
+5,7,0,stand,-0.2980000000000018
+5,7,0,hit,61.13571122064841
+5,7,0,double down,0
+5,7,0,surrender,0
+5,8,0,stand,0
+5,8,0,hit,33.748428267240485
+5,8,0,double down,0
+5,8,0,surrender,0
+5,9,0,stand,0
+5,9,0,hit,21.56940973723629
+5,9,0,double down,0
+5,9,0,surrender,0
+5,10,0,stand,-1.1722688020000103
+5,10,0,hit,296.92003719008113
+5,10,0,double down,-47.628102299996904
+5,10,0,surrender,0
+6,1,0,stand,-0.2980000000000018
+6,1,0,hit,83.73054982697442
+6,1,0,double down,0
+6,1,0,surrender,0
+6,2,0,stand,-10.0
+6,2,0,hit,86.44623327737946
+6,2,0,double down,0
+6,2,0,surrender,0
+6,3,0,stand,0
+6,3,0,hit,70.69706170810893
+6,3,0,double down,0
+6,3,0,surrender,0
+6,4,0,stand,0
+6,4,0,hit,0
+6,4,0,double down,0
+6,4,0,surrender,56.807564141935366
+6,5,0,stand,8.91690019999999
+6,5,0,hit,0
+6,5,0,double down,-28.9114805
+6,5,0,surrender,63.00556202526075
+6,6,0,stand,0
+6,6,0,hit,82.4654268259427
+6,6,0,double down,0
+6,6,0,surrender,0
+6,7,0,stand,0
+6,7,0,hit,0
+6,7,0,double down,0
+6,7,0,surrender,56.807564141935366
+6,8,0,stand,11.12317955
+6,8,0,hit,0
+6,8,0,double down,0
+6,8,0,surrender,69.97082267935573
+6,9,0,stand,0
+6,9,0,hit,3.476488750743597
+6,9,0,double down,0
+6,9,0,surrender,69.97082267935573
+6,10,0,stand,-1.1676070985769176
+6,10,0,hit,292.7680272516531
+6,10,0,double down,0
+6,10,0,surrender,0
+7,1,0,stand,-8.663455
+7,1,0,hit,1.77317955
+7,1,0,double down,0
+7,1,0,surrender,61.23948850051601
+7,2,0,stand,-0.2980000000000018
+7,2,0,hit,0
+7,2,0,double down,0
+7,2,0,surrender,67.206631456909
+7,3,0,stand,-10.0
+7,3,0,hit,57.930189333255775
+7,3,0,double down,-20.0
+7,3,0,surrender,0
+7,4,0,stand,-10.0
+7,4,0,hit,64.55973710077944
+7,4,0,double down,-38.0
+7,4,0,surrender,0
+7,5,0,stand,-1.729481246311808
+7,5,0,hit,105.85015650768351
+7,5,0,double down,0
+7,5,0,surrender,0
+7,6,0,stand,0
+7,6,0,hit,111.7027068332383
+7,6,0,double down,0
+7,6,0,surrender,0
+7,7,0,stand,-10.0
+7,7,0,hit,132.7854160307065
+7,7,0,double down,0
+7,7,0,surrender,0
+7,8,0,stand,-10.0
+7,8,0,hit,0
+7,8,0,double down,-18.56
+7,8,0,surrender,24.504975050000002
+7,9,0,stand,0
+7,9,0,hit,0
+7,9,0,double down,1.7230581187598908
+7,9,0,surrender,83.65846103475515
+7,10,0,stand,4.195651204918055
+7,10,0,hit,11.007179550000002
+7,10,0,double down,353.029220686927
+7,10,0,surrender,5.923400000000001
+8,1,0,stand,-15.136990655814548
+8,1,0,hit,0.0
+8,1,0,double down,0
+8,1,0,surrender,111.08932030042662
+8,2,0,stand,-19.0
+8,2,0,hit,120.66933133877626
+8,2,0,double down,0
+8,2,0,surrender,0
+8,3,0,stand,-10.0
+8,3,0,hit,104.92220248786879
+8,3,0,double down,0
+8,3,0,surrender,0
+8,4,0,stand,0
+8,4,0,hit,0
+8,4,0,double down,0
+8,4,0,surrender,114.97842709742235
+8,5,0,stand,-10.0
+8,5,0,hit,3.572008053223398
+8,5,0,double down,195.95371688133093
+8,5,0,surrender,0
+8,6,0,stand,0
+8,6,0,hit,0
+8,6,0,double down,0
+8,6,0,surrender,118.82864282644813
+8,7,0,stand,0
+8,7,0,hit,129.311978499359
+8,7,0,double down,0
+8,7,0,surrender,0
+8,8,0,stand,3.248736025084332
+8,8,0,hit,0
+8,8,0,double down,-1.144999999999996
+8,8,0,surrender,0
+8,9,0,stand,1.1476556715305328
+8,9,0,hit,0
+8,9,0,double down,81.72506882163728
+8,9,0,surrender,12.39494855
+8,10,0,stand,18.620250790394966
+8,10,0,hit,7.358887382607856
+8,10,0,double down,15.830379687164578
+8,10,0,surrender,305.7381278851542
+9,1,0,stand,0
+9,1,0,hit,10.458806624603799
+9,1,0,double down,-1.5500000000000007
+9,1,0,surrender,124.92738454122498
+9,2,0,stand,-10.0
+9,2,0,hit,1.2438
+9,2,0,double down,-19.104499999999998
+9,2,0,surrender,107.24976836653016
+9,3,0,stand,0
+9,3,0,hit,162.33338949538228
+9,3,0,double down,0
+9,3,0,surrender,0
+9,4,0,stand,0
+9,4,0,hit,0
+9,4,0,double down,0
+9,4,0,surrender,114.97842709742235
+9,5,0,stand,49.404979999999995
+9,5,0,hit,5.34618
+9,5,0,double down,295.65721268185047
+9,5,0,surrender,22.216923173922215
+9,6,0,stand,0
+9,6,0,hit,19.485765809235005
+9,6,0,double down,349.1006809290837
+9,6,0,surrender,24.972231211946642
+9,7,0,stand,0
+9,7,0,hit,0
+9,7,0,double down,-38.0
+9,7,0,surrender,111.08932030042662
+9,8,0,stand,22.2054477545
+9,8,0,hit,0
+9,8,0,double down,0
+9,8,0,surrender,122.64035639818366
+9,9,0,stand,0
+9,9,0,hit,0
+9,9,0,double down,0
+9,9,0,surrender,99.18470523047704
+9,10,0,stand,-18.244706076782222
+9,10,0,hit,337.3013551961145
+9,10,0,double down,-11.805812191875388
+9,10,0,surrender,7.62824311653366
+10,1,0,stand,0
+10,1,0,hit,1.336545
+10,1,0,double down,0
+10,1,0,surrender,137.5979200977207
+10,2,0,stand,0
+10,2,0,hit,5.511553965046442
+10,2,0,double down,0
+10,2,0,surrender,148.2761525002153
+10,3,0,stand,0
+10,3,0,hit,0
+10,3,0,double down,239.824550452808
+10,3,0,surrender,6.860935340976692
+10,4,0,stand,-10.0
+10,4,0,hit,0
+10,4,0,double down,0
+10,4,0,surrender,114.97842709742235
+10,5,0,stand,0
+10,5,0,hit,0
+10,5,0,double down,366.1924617722006
+10,5,0,surrender,9.95
+10,6,0,stand,-9.55
+10,6,0,hit,0.0
+10,6,0,double down,0
+10,6,0,surrender,126.41395283420182
+10,7,0,stand,-17.44061150779569
+10,7,0,hit,387.79397123114023
+10,7,0,double down,0
+10,7,0,surrender,5.511211772855001
+10,8,0,stand,0
+10,8,0,hit,0
+10,8,0,double down,296.0868068795595
+10,8,0,surrender,9.222525500000001
+10,9,0,stand,-9.158677845207704
+10,9,0,hit,234.63633519606088
+10,9,0,double down,0
+10,9,0,surrender,0
+10,10,0,stand,3.4613758825491767
+10,10,0,hit,93.49084271913027
+10,10,0,double down,994.2275445720562
+10,10,0,surrender,48.75495535768795
+11,1,0,stand,11.12317955
+11,1,0,hit,1.9620000000000002
+11,1,0,double down,-17.366606723045
+11,1,0,surrender,126.41395283420182
+11,2,0,stand,-10.0
+11,2,0,hit,188.29776289640662
+11,2,0,double down,0
+11,2,0,surrender,0
+11,3,0,stand,0
+11,3,0,hit,0.45
+11,3,0,double down,324.2133621963309
+11,3,0,surrender,8.6
+11,4,0,stand,0
+11,4,0,hit,0
+11,4,0,double down,0
+11,4,0,surrender,137.50983202107318
+11,5,0,stand,23.6
+11,5,0,hit,1.77317955
+11,5,0,double down,378.8031588870753
+11,5,0,surrender,16.34
+11,6,0,stand,-8.22682045
+11,6,0,hit,0
+11,6,0,double down,389.6011510539337
+11,6,0,surrender,69.91574390874977
+11,7,0,stand,0
+11,7,0,hit,0
+11,7,0,double down,0
+11,7,0,surrender,158.7227024948064
+11,8,0,stand,0
+11,8,0,hit,0
+11,8,0,double down,-14.600000000000001
+11,8,0,surrender,181.90725696806442
+11,9,0,stand,0
+11,9,0,hit,0.0
+11,9,0,double down,325.28431334623764
+11,9,0,surrender,0
+11,10,0,stand,1.0340000000000005
+11,10,0,hit,19.727487986481172
+11,10,0,double down,540.0421242895718
+11,10,0,surrender,49.18466793415074
+12,1,1,stand,-18.145000000000003
+12,1,1,hit,0
+12,1,1,double down,0.06999999999999673
+12,1,1,surrender,19.701995
+12,1,0,stand,-18.546325475499998
+12,1,0,hit,0.4536450000000001
+12,1,0,double down,-68.78
+12,1,0,surrender,252.601077571145
+12,2,0,stand,-10.0
+12,2,0,hit,0.855
+12,2,0,double down,32.66244902701419
+12,2,0,surrender,234.5689473855642
+12,2,1,stand,0
+12,2,1,hit,0
+12,2,1,double down,0
+12,2,1,surrender,43.24137625817956
+12,3,0,stand,77.12049680854132
+12,3,0,hit,0
+12,3,0,double down,-20.0
+12,3,0,surrender,0
+12,3,1,stand,-10.0
+12,3,1,hit,-10.0
+12,3,1,double down,-17.7945522455
+12,3,1,surrender,0
+12,4,0,stand,0
+12,4,0,hit,1.9380496499999997
+12,4,0,double down,-24.69065520747262
+12,4,0,surrender,252.5806701998964
+12,4,1,stand,0
+12,4,1,hit,0
+12,4,1,double down,123.29819589182664
+12,4,1,surrender,0
+12,5,0,stand,-19.0
+12,5,0,hit,-19.0
+12,5,0,double down,-37.039744999999996
+12,5,0,surrender,269.3890162909522
+12,5,1,stand,29.701999999999998
+12,5,1,hit,0
+12,5,1,double down,0
+12,5,1,surrender,0
+12,6,0,stand,0
+12,6,0,hit,0.0
+12,6,0,double down,17.056593098201
+12,6,0,surrender,226.42167880461923
+12,6,1,stand,39.8
+12,6,1,hit,0
+12,6,1,double down,-20.0
+12,6,1,surrender,0
+12,7,1,stand,-10.0
+12,7,1,hit,-10.0
+12,7,1,double down,-17.366606723045
+12,7,1,surrender,0
+12,7,0,stand,30.703796073183206
+12,7,0,hit,-10.0
+12,7,0,double down,0
+12,7,0,surrender,245.0071268752172
+12,8,0,stand,-10.0
+12,8,0,hit,-6.792318999999999
+12,8,0,double down,-48.68844603495356
+12,8,0,surrender,223.6582614188073
+12,8,1,stand,-10.0
+12,8,1,hit,26.208124099678326
+12,8,1,double down,0
+12,8,1,surrender,0
+12,9,0,stand,-15.283783808379999
+12,9,0,hit,-8.807175449999999
+12,9,0,double down,10.534082628855206
+12,9,0,surrender,213.45352202009911
+12,9,1,stand,0
+12,9,1,hit,0
+12,9,1,double down,0
+12,9,1,surrender,38.62765278603996
+12,10,0,stand,-19.3091913705776
+12,10,0,hit,1.1011950000000001
+12,10,0,double down,27.770497951370906
+12,10,0,surrender,465.14247297994496
+12,10,1,stand,0
+12,10,1,hit,0
+12,10,1,double down,557.3656813149953
+12,10,1,surrender,0
+13,1,0,stand,-10.0
+13,1,0,hit,-8.967195
+13,1,0,double down,-52.54325475500001
+13,1,0,surrender,220.866930726068
+13,1,1,stand,0
+13,1,1,hit,0
+13,1,1,double down,0
+13,1,1,surrender,43.24137625817956
+13,2,0,stand,22.2054477545
+13,2,0,hit,-10.0
+13,2,0,double down,8.170053949259504
+13,2,0,surrender,245.0071268752172
+13,2,1,stand,-10.0
+13,2,1,hit,-4.078811417143622
+13,2,1,double down,-20.0
+13,2,1,surrender,29.259925299500004
+13,3,0,stand,0
+13,3,0,hit,3.75808252905
+13,3,0,double down,27.521335613949994
+13,3,0,surrender,200.52199676691936
+13,3,1,stand,-9.1045
+13,3,1,hit,0.0
+13,3,1,double down,0
+13,3,1,surrender,56.807564141935366
+13,4,1,stand,-9.55
+13,4,1,hit,0.0
+13,4,1,double down,0
+13,4,1,surrender,43.24137625817956
+13,4,0,stand,4.68139805
+13,4,0,hit,0
+13,4,0,double down,159.39406594560654
+13,4,0,surrender,0
+13,5,0,stand,-18.55
+13,5,0,hit,0.0
+13,5,0,double down,0
+13,5,0,surrender,188.23730255439992
+13,5,1,stand,0
+13,5,1,hit,0
+13,5,1,double down,0
+13,5,1,surrender,33.96732604650501
+13,6,1,stand,-10.0
+13,6,1,hit,-9.595000000000002
+13,6,1,double down,-19.104499999999998
+13,6,1,surrender,43.24137625817956
+13,6,0,stand,6.496131109996153
+13,6,0,hit,0
+13,6,0,double down,-2.033101291076772
+13,6,0,surrender,199.62143779202722
+13,7,0,stand,-19.0
+13,7,0,hit,-4.17861522031455
+13,7,0,double down,3.068731347347793
+13,7,0,surrender,172.1703897129281
+13,7,1,stand,-10.0
+13,7,1,hit,-0.773194258000002
+13,7,1,double down,-20.0
+13,7,1,surrender,33.96732604650501
+13,8,0,stand,0
+13,8,0,hit,-8.55
+13,8,0,double down,7.158313299679239
+13,8,0,surrender,185.3773596193219
+13,8,1,stand,-1.1722688020000103
+13,8,1,hit,0
+13,8,1,double down,-19.55
+13,8,1,surrender,0
+13,9,0,stand,-10.0
+13,9,0,hit,0.45
+13,9,0,double down,-20.0
+13,9,0,surrender,231.86588739640732
+13,9,1,stand,-10.0
+13,9,1,hit,-5.935579849733096
+13,9,1,double down,-20.0
+13,9,1,surrender,43.24137625817956
+13,10,0,stand,27.16723595292995
+13,10,0,hit,21.352851835526884
+13,10,0,double down,11.71250476879813
+13,10,0,surrender,462.71372785346585
+13,10,1,stand,-19.0
+13,10,1,hit,-10.0
+13,10,1,double down,-14.65382
+13,10,1,surrender,111.08932030042662
+14,1,0,stand,-20.49467137358717
+14,1,0,hit,-19.0
+14,1,0,double down,-52.76372456450001
+14,1,0,surrender,203.51677679925015
+14,1,1,stand,-10.0
+14,1,1,hit,-9.599050000000002
+14,1,1,double down,-20.0
+14,1,1,surrender,24.504975050000002
+14,2,0,stand,-9.55
+14,2,0,hit,-1.0091406558145488
+14,2,0,double down,-19.118000000000002
+14,2,0,surrender,223.6582614188073
+14,2,1,stand,-0.2980000000000018
+14,2,1,hit,36.95489142296483
+14,2,1,double down,-20.0
+14,2,1,surrender,0
+14,3,0,stand,77.15277174422596
+14,3,0,hit,-10.0
+14,3,0,double down,11.847399999999993
+14,3,0,surrender,22.377200000000002
+14,3,1,stand,-0.2980000000000018
+14,3,1,hit,67.17814239379058
+14,3,1,double down,-19.775000000000002
+14,3,1,surrender,0
+14,4,1,stand,-10.0
+14,4,1,hit,-10.0
+14,4,1,double down,83.87312425075778
+14,4,1,surrender,5.0
+14,4,0,stand,27.426208228944954
+14,4,0,hit,0.45
+14,4,0,double down,-20.0
+14,4,0,surrender,229.15746201657305
+14,5,0,stand,-7.7945522455
+14,5,0,hit,-12.5903880838
+14,5,0,double down,0
+14,5,0,surrender,245.0071268752172
+14,5,1,stand,-10.0
+14,5,1,hit,-10.0
+14,5,1,double down,131.19535695820267
+14,5,1,surrender,0
+14,6,0,stand,13.50581250590129
+14,6,0,hit,0
+14,6,0,double down,279.6213973317324
+14,6,0,surrender,10.4
+14,6,1,stand,-0.2980000000000018
+14,6,1,hit,30.885094101720078
+14,6,1,double down,0
+14,6,1,surrender,0
+14,7,0,stand,2.036901159946691
+14,7,0,hit,2.684845256174105
+14,7,0,double down,-2.009998577542344
+14,7,0,surrender,192.47727523966012
+14,7,1,stand,-10.0
+14,7,1,hit,46.13448915891197
+14,7,1,double down,-19.67762
+14,7,1,surrender,0
+14,8,0,stand,-5.795159919597837
+14,8,0,hit,0
+14,8,0,double down,-5.235500000000002
+14,8,0,surrender,241.74317268768345
+14,8,1,stand,-19.0
+14,8,1,hit,2.1531026717943185
+14,8,1,double down,0
+14,8,1,surrender,0
+14,9,0,stand,19.667427990401517
+14,9,0,hit,0.45
+14,9,0,double down,-20.0
+14,9,0,surrender,231.86588739640732
+14,9,1,stand,0
+14,9,1,hit,0.45
+14,9,1,double down,-0.7440499999999979
+14,9,1,surrender,43.24137625817956
+14,10,1,stand,-8.095594155808005
+14,10,1,hit,10.662131767473701
+14,10,1,double down,518.4671357727385
+14,10,1,surrender,9.95
+14,10,0,stand,78.7690047680141
+14,10,0,hit,-12.014115118103414
+14,10,0,double down,35.00540500040228
+14,10,0,surrender,447.18835612109547
+15,1,0,stand,-0.2980000000000018
+15,1,0,hit,-4.9595944430888075
+15,1,0,double down,-4.163724564500004
+15,1,0,surrender,203.51677679925015
+15,1,1,stand,0
+15,1,1,hit,0.0
+15,1,1,double down,0
+15,1,1,surrender,43.24137625817956
+15,2,0,stand,3.3500000000000014
+15,2,0,hit,-19.0
+15,2,0,double down,-38.0
+15,2,0,surrender,197.49696643123167
+15,2,1,stand,-10.0
+15,2,1,hit,-10.0
+15,2,1,double down,-20.0
+15,2,1,surrender,38.62765278603996
+15,3,0,stand,9.799999999999999
+15,3,0,hit,-5.108276136763839
+15,3,0,double down,8.853612991763566
+15,3,0,surrender,206.75113923416745
+15,3,1,stand,-10.0
+15,3,1,hit,-10.0
+15,3,1,double down,-20.0
+15,3,1,surrender,33.96732604650501
+15,4,1,stand,0
+15,4,1,hit,0
+15,4,1,double down,-19.55
+15,4,1,surrender,29.259925299500004
+15,4,0,stand,4.119499999999999
+15,4,0,hit,-5.9569716700000015
+15,4,0,double down,0.20500000000000185
+15,4,0,surrender,229.15746201657305
+15,5,0,stand,145.3300312584908
+15,5,0,hit,0
+15,5,0,double down,-54.2
+15,5,0,surrender,14.127717695000001
+15,5,1,stand,0
+15,5,1,hit,0.0
+15,5,1,double down,0
+15,5,1,surrender,38.62765278603996
+15,6,0,stand,-10.0
+15,6,0,hit,45.25447334057176
+15,6,0,double down,-7.956338745266855
+15,6,0,surrender,0
+15,6,1,stand,0
+15,6,1,hit,0
+15,6,1,double down,272.46651230573093
+15,6,1,surrender,0
+15,7,0,stand,-18.55
+15,7,0,hit,-14.399999999999999
+15,7,0,double down,-54.2
+15,7,0,surrender,206.48160903125765
+15,7,1,stand,0
+15,7,1,hit,0.0
+15,7,1,double down,0
+15,7,1,surrender,43.24137625817956
+15,8,0,stand,-3.970825958857986
+15,8,0,hit,-27.1
+15,8,0,double down,-34.15793105
+15,8,0,surrender,209.41679294094507
+15,8,1,stand,0
+15,8,1,hit,0
+15,8,1,double down,0
+15,8,1,surrender,47.80896249559776
+15,9,0,stand,-8.474001887364315
+15,9,0,hit,-17.087926382997267
+15,9,0,double down,-19.104499999999998
+15,9,0,surrender,203.51677679925015
+15,9,1,stand,0
+15,9,1,hit,0
+15,9,1,double down,0
+15,9,1,surrender,56.807564141935366
+15,10,0,stand,16.248963839045544
+15,10,0,hit,-45.60931
+15,10,0,double down,-49.4300938347245
+15,10,0,surrender,436.9303978490144
+15,10,1,stand,0
+15,10,1,hit,1.8
+15,10,1,double down,-19.1
+15,10,1,surrender,168.8589795080082
+16,1,1,stand,0.5796795499999998
+16,1,1,hit,0.0
+16,1,1,double down,0
+16,1,1,surrender,33.96732604650501
+16,1,0,stand,-9.55
+16,1,0,hit,-10.0
+16,1,0,double down,-20.0
+16,1,0,surrender,209.41679294094507
+16,2,1,stand,0
+16,2,1,hit,0
+16,2,1,double down,213.0532954166543
+16,2,1,surrender,0
+16,2,0,stand,171.4692761420576
+16,2,0,hit,-31.951
+16,2,0,double down,0
+16,2,0,surrender,7.64618
+16,3,0,stand,0
+16,3,0,hit,-10.0
+16,3,0,double down,-38.0
+16,3,0,surrender,206.48160903125765
+16,3,1,stand,-0.2980000000000018
+16,3,1,hit,28.08804222599446
+16,3,1,double down,0
+16,3,1,surrender,0
+16,4,1,stand,-10.0
+16,4,1,hit,4.816179769500001
+16,4,1,double down,0
+16,4,1,surrender,15.275330401287826
+16,4,0,stand,-18.55
+16,4,0,hit,-10.0
+16,4,0,double down,-38.0
+16,4,0,surrender,188.23730255439992
+16,5,0,stand,22.633393276955005
+16,5,0,hit,0.0
+16,5,0,double down,-2.524692844999997
+16,5,0,surrender,165.51412071515978
+16,5,1,stand,-0.2980000000000018
+16,5,1,hit,0
+16,5,1,double down,-20.0
+16,5,1,surrender,53.95876060565763
+16,6,0,stand,-10.0
+16,6,0,hit,-19.0
+16,6,0,double down,-20.0
+16,6,0,surrender,209.41679294094507
+16,6,1,stand,0
+16,6,1,hit,0
+16,6,1,double down,0
+16,6,1,surrender,65.62709361551084
+16,7,1,stand,0
+16,7,1,hit,0
+16,7,1,double down,31.98383121623032
+16,7,1,surrender,0
+16,7,0,stand,-9.1045
+16,7,0,hit,-19.0
+16,7,0,double down,-20.0
+16,7,0,surrender,191.3549295288559
+16,8,0,stand,-12.58642660398249
+16,8,0,hit,0.45
+16,8,0,double down,-17.794999999999998
+16,8,0,surrender,188.23730255439992
+16,8,1,stand,0
+16,8,1,hit,0
+16,8,1,double down,0
+16,8,1,surrender,33.96732604650501
+16,9,0,stand,-8.4142
+16,9,0,hit,-10.0
+16,9,0,double down,-4.1419999999999995
+16,9,0,surrender,185.08818439838376
+16,9,1,stand,-10.0
+16,9,1,hit,-4.8290349216288675
+16,9,1,double down,-20.0
+16,9,1,surrender,19.701995
+16,10,0,stand,1.0563527181738968
+16,10,0,hit,-27.1
+16,10,0,double down,48.29901032138289
+16,10,0,surrender,398.84998643561147
+16,10,1,stand,-10.0
+16,10,1,hit,-7.461739855
+16,10,1,double down,-6.144755346824304
+16,10,1,surrender,130.1498133058598
+17,1,0,stand,-6.4
+17,1,0,hit,-10.0
+17,1,0,double down,-37.024760000000015
+17,1,0,surrender,175.44868581579883
+17,1,1,stand,-0.2980000000000018
+17,1,1,hit,-10.0
+17,1,1,double down,-19.55
+17,1,1,surrender,33.96732604650501
+17,2,0,stand,-9.1045
+17,2,0,hit,2.6333932769550006
+17,2,0,double down,0
+17,2,0,surrender,148.2761525002153
+17,2,1,stand,-10.0
+17,2,1,hit,0
+17,2,1,double down,171.4807927471499
+17,2,1,surrender,0
+17,3,0,stand,0
+17,3,0,hit,-10.0
+17,3,0,double down,11.10441330456143
+17,3,0,surrender,160.91640413166255
+17,3,1,stand,20.0
+17,3,1,hit,0.0
+17,3,1,double down,-17.366606723045
+17,3,1,surrender,0
+17,4,0,stand,-6.9429406558145494
+17,4,0,hit,0
+17,4,0,double down,0
+17,4,0,surrender,162.13547546985836
+17,4,1,stand,-10.0
+17,4,1,hit,1.6974
+17,4,1,double down,0
+17,4,1,surrender,34.111152203008395
+17,5,0,stand,-10.0
+17,5,0,hit,-8.542000000000002
+17,5,0,double down,-54.2
+17,5,0,surrender,175.44868581579883
+17,5,1,stand,0
+17,5,1,hit,0
+17,5,1,double down,65.5813315613128
+17,5,1,surrender,0
+17,6,0,stand,21.312250145
+17,6,0,hit,-10.0
+17,6,0,double down,10.026623053125867
+17,6,0,surrender,143.20553758228482
+17,6,1,stand,0
+17,6,1,hit,0
+17,6,1,double down,162.09558612221622
+17,6,1,surrender,5.0
+17,7,0,stand,-8.424279389584706
+17,7,0,hit,-10.0
+17,7,0,double down,-38.0
+17,7,0,surrender,239.82973867484665
+17,7,1,stand,0
+17,7,1,hit,1.8
+17,7,1,double down,161.49372058138235
+17,7,1,surrender,0
+17,8,0,stand,-0.10000000000000142
+17,8,0,hit,-17.542
+17,8,0,double down,-25.040000000000003
+17,8,0,surrender,172.1703897129281
+17,8,1,stand,0
+17,8,1,hit,0
+17,8,1,double down,0
+17,8,1,surrender,52.330872870641784
+17,9,0,stand,-9.55
+17,9,0,hit,-19.0
+17,9,0,double down,-20.0
+17,9,0,surrender,178.69419895764082
+17,9,1,stand,0
+17,9,1,hit,0
+17,9,1,double down,0
+17,9,1,surrender,47.80896249559776
+17,10,0,stand,11.801507277387495
+17,10,0,hit,-27.42603467900301
+17,10,0,double down,-37.26445049067214
+17,10,0,surrender,367.3168751261473
+17,10,1,stand,29.900000000000002
+17,10,1,hit,-9.0
+17,10,1,double down,228.46572008375244
+17,10,1,surrender,0
+18,1,0,stand,0.36843869203946333
+18,1,0,hit,0.45
+18,1,0,double down,-20.0
+18,1,0,surrender,154.58347984300127
+18,1,1,stand,0
+18,1,1,hit,0.0
+18,1,1,double down,0
+18,1,1,surrender,24.504975050000002
+18,2,1,stand,143.21351426239917
+18,2,1,hit,0
+18,2,1,double down,45.3194491
+18,2,1,surrender,0
+18,2,0,stand,230.79627422743613
+18,2,0,hit,-10.0
+18,2,0,double down,-38.0
+18,2,0,surrender,5.882000000000001
+18,3,0,stand,0.14304500000000075
+18,3,0,hit,0.8955000000000001
+18,3,0,double down,0
+18,3,0,surrender,191.3549295288559
+18,3,1,stand,60.044973776712666
+18,3,1,hit,16.497627990936106
+18,3,1,double down,0
+18,3,1,surrender,0
+18,4,1,stand,-10.0
+18,4,1,hit,-3.629502316450001
+18,4,1,double down,-20.0
+18,4,1,surrender,24.504975050000002
+18,4,0,stand,363.0994730809203
+18,4,0,hit,-10.0
+18,4,0,double down,0
+18,4,0,surrender,0
+18,5,0,stand,270.4364123243349
+18,5,0,hit,-10.0
+18,5,0,double down,-20.0
+18,5,0,surrender,6.800000000000001
+18,5,1,stand,0
+18,5,1,hit,0.0
+18,5,1,double down,201.34831130126798
+18,5,1,surrender,0
+18,6,1,stand,-0.2980000000000018
+18,6,1,hit,-5.5802011733151495
+18,6,1,double down,-16.418000000000003
+18,6,1,surrender,0
+18,6,0,stand,309.6313336481657
+18,6,0,hit,19.486793586348348
+18,6,0,double down,0
+18,6,0,surrender,0
+18,7,1,stand,107.238701198
+18,7,1,hit,6.2106282
+18,7,1,double down,-20.0
+18,7,1,surrender,0
+18,7,0,stand,14.462059344185452
+18,7,0,hit,-10.0
+18,7,0,double down,0
+18,7,0,surrender,158.7227024948064
+18,8,0,stand,0
+18,8,0,hit,-19.0
+18,8,0,double down,-20.0
+18,8,0,surrender,158.7227024948064
+18,8,1,stand,180.41274326006746
+18,8,1,hit,0
+18,8,1,double down,0
+18,8,1,surrender,8.581999999999999
+18,9,0,stand,7.297374041142017
+18,9,0,hit,-10.0
+18,9,0,double down,-21.8
+18,9,0,surrender,191.3549295288559
+18,9,1,stand,0
+18,9,1,hit,0
+18,9,1,double down,0
+18,9,1,surrender,43.24137625817956
+18,10,1,stand,125.16503560013746
+18,10,1,hit,0
+18,10,1,double down,0
+18,10,1,surrender,0
+18,10,0,stand,0.3004287291408567
+18,10,0,hit,-5.152563684109971
+18,10,0,double down,14.321688832129919
+18,10,0,surrender,404.1218885243497
+19,1,0,stand,0
+19,1,0,hit,-10.0
+19,1,0,double down,-20.0
+19,1,0,surrender,185.08818439838376
+19,1,1,stand,-0.2980000000000018
+19,1,1,hit,-9.599050000000002
+19,1,1,double down,0
+19,1,1,surrender,0
+19,2,0,stand,351.2993630637964
+19,2,0,hit,-10.0
+19,2,0,double down,58.630573975292705
+19,2,0,surrender,16.608594232238
+19,2,1,stand,163.64485155364832
+19,2,1,hit,-7.11316
+19,2,1,double down,0
+19,2,1,surrender,0
+19,3,0,stand,-5.763454999999999
+19,3,0,hit,-34.39
+19,3,0,double down,-20.0
+19,3,0,surrender,203.51677679925015
+19,3,1,stand,65.3144046093691
+19,3,1,hit,0
+19,3,1,double down,-20.0
+19,3,1,surrender,0
+19,4,0,stand,338.91759646765115
+19,4,0,hit,-10.0
+19,4,0,double down,0
+19,4,0,surrender,0
+19,4,1,stand,0
+19,4,1,hit,-10.0
+19,4,1,double down,0
+19,4,1,surrender,56.807564141935366
+19,5,0,stand,407.6875702964494
+19,5,0,hit,-10.0
+19,5,0,double down,-20.0
+19,5,0,surrender,0
+19,5,1,stand,0
+19,5,1,hit,0
+19,5,1,double down,0
+19,5,1,surrender,61.23948850051601
+19,6,0,stand,6.072350345743596
+19,6,0,hit,-19.0
+19,6,0,double down,-54.2
+19,6,0,surrender,185.08818439838376
+19,6,1,stand,20.0
+19,6,1,hit,0
+19,6,1,double down,43.47297395764812
+19,6,1,surrender,0
+19,7,1,stand,227.23025656774146
+19,7,1,hit,0
+19,7,1,double down,0
+19,7,1,surrender,0
+19,7,0,stand,391.1696806983825
+19,7,0,hit,-15.6862
+19,7,0,double down,0
+19,7,0,surrender,8.581999999999999
+19,8,1,stand,0
+19,8,1,hit,-8.55
+19,8,1,double down,0
+19,8,1,surrender,52.330872870641784
+19,8,0,stand,396.3762987322987
+19,8,0,hit,0
+19,8,0,double down,0
+19,8,0,surrender,0
+19,9,0,stand,390.1065457133245
+19,9,0,hit,-10.0
+19,9,0,double down,0
+19,9,0,surrender,0
+19,9,1,stand,0
+19,9,1,hit,0.0
+19,9,1,double down,130.83670253918547
+19,9,1,surrender,0
+19,10,0,stand,419.7031381511327
+19,10,0,hit,-34.39
+19,10,0,double down,-68.78
+19,10,0,surrender,30.913153935828056
+19,10,1,stand,225.13057625765376
+19,10,1,hit,17.951692212878424
+19,10,1,double down,0
+19,10,1,surrender,6.165431817173641
+20,1,0,stand,-8.663455
+20,1,0,hit,-19.0
+20,1,0,double down,-54.2
+20,1,0,surrender,252.5806701998964
+20,1,1,stand,115.98974084415983
+20,1,1,hit,0.0
+20,1,1,double down,-19.959500000000002
+20,1,1,surrender,0
+20,2,0,stand,0
+20,2,0,hit,-10.0
+20,2,0,double down,-81.902
+20,2,0,surrender,250.0814850504004
+20,2,1,stand,0
+20,2,1,hit,0
+20,2,1,double down,235.58651835914316
+20,2,1,surrender,0
+20,3,0,stand,23.05705934418545
+20,3,0,hit,0
+20,3,0,double down,-20.0
+20,3,0,surrender,271.6951261280427
+20,3,1,stand,307.0806073810291
+20,3,1,hit,0
+20,3,1,double down,-20.0
+20,3,1,surrender,6.800000000000001
+20,4,0,stand,557.2639958065749
+20,4,0,hit,-10.0
+20,4,0,double down,-54.2
+20,4,0,surrender,45.116127040179435
+20,4,1,stand,0
+20,4,1,hit,0
+20,4,1,double down,163.24708743089596
+20,4,1,surrender,0
+20,5,0,stand,657.5866628004192
+20,5,0,hit,-10.0
+20,5,0,double down,-20.0
+20,5,0,surrender,27.181101877884284
+20,5,1,stand,20.0
+20,5,1,hit,-10.0
+20,5,1,double down,183.60642554251157
+20,5,1,surrender,0
+20,6,0,stand,657.6882273634377
+20,6,0,hit,0.8848130040000015
+20,6,0,double down,-20.0
+20,6,0,surrender,8.581999999999999
+20,6,1,stand,0
+20,6,1,hit,0.0
+20,6,1,double down,208.0235158558616
+20,6,1,surrender,0
+20,7,1,stand,241.4080804874333
+20,7,1,hit,0
+20,7,1,double down,0
+20,7,1,surrender,0
+20,7,0,stand,1053.0788031853474
+20,7,0,hit,-10.0
+20,7,0,double down,-81.902
+20,7,0,surrender,36.92725974911231
+20,8,0,stand,26.29737404114202
+20,8,0,hit,0
+20,8,0,double down,0
+20,8,0,surrender,200.52199676691936
+20,8,1,stand,209.32349148256714
+20,8,1,hit,-9.639145000000001
+20,8,1,double down,0
+20,8,1,surrender,0
+20,9,0,stand,916.6989899307051
+20,9,0,hit,-10.0
+20,9,0,double down,-20.0
+20,9,0,surrender,21.766367322792544
+20,9,1,stand,-9.1045
+20,9,1,hit,0
+20,9,1,double down,0
+20,9,1,surrender,33.96732604650501
+20,10,0,stand,1217.2323700200654
+20,10,0,hit,-45.88465974238016
+20,10,0,double down,-130.26431198
+20,10,0,surrender,94.74558891957653
+20,10,1,stand,31.787260259126334
+20,10,1,hit,7.002000000000002
+20,10,1,double down,615.0894144269266
+20,10,1,surrender,16.78726025912633
+21,1,1,stand,648.2268648984076
+21,1,1,hit,0.0
+21,1,1,double down,70.56056864373001
+21,1,1,surrender,0
+21,1,0,stand,19.9
+21,1,0,hit,0
+21,1,0,double down,0
+21,1,0,surrender,0
+21,2,1,stand,0
+21,2,1,hit,0
+21,2,1,double down,0
+21,2,1,surrender,151.79339097521313
+21,2,0,stand,329.9281659179217
+21,2,0,hit,0
+21,2,0,double down,0
+21,2,0,surrender,0
+21,3,0,stand,0
+21,3,0,hit,0
+21,3,0,double down,0
+21,3,0,surrender,0
+21,3,1,stand,776.5521270232346
+21,3,1,hit,0
+21,3,1,double down,-20.0
+21,3,1,surrender,53.10405296306301
+21,4,1,stand,1034.871242608554
+21,4,1,hit,0.45
+21,4,1,double down,-20.0
+21,4,1,surrender,14.935595
+21,4,0,stand,0
+21,4,0,hit,0
+21,4,0,double down,0
+21,4,0,surrender,9.95
+21,5,0,stand,30.0
+21,5,0,hit,-10.0
+21,5,0,double down,0
+21,5,0,surrender,0
+21,5,1,stand,0
+21,5,1,hit,1.8
+21,5,1,double down,0
+21,5,1,surrender,172.1703897129281
+21,6,0,stand,30.0
+21,6,0,hit,-10.0
+21,6,0,double down,0
+21,6,0,surrender,0
+21,6,1,stand,33.6
+21,6,1,hit,0
+21,6,1,double down,541.1913419059902
+21,6,1,surrender,0
+21,7,1,stand,40.74600000000001
+21,7,1,hit,0.0
+21,7,1,double down,527.3253268222843
+21,7,1,surrender,15.746000000000002
+21,7,0,stand,59.7
+21,7,0,hit,-10.0
+21,7,0,double down,0
+21,7,0,surrender,0
+21,8,0,stand,0
+21,8,0,hit,0
+21,8,0,double down,0
+21,8,0,surrender,5.0
+21,8,1,stand,0
+21,8,1,hit,0.45
+21,8,1,double down,0
+21,8,1,surrender,158.7227024948064
+21,9,1,stand,1110.8153898590313
+21,9,1,hit,0.0
+21,9,1,double down,0
+21,9,1,surrender,5.0
+21,9,0,stand,30.0
+21,9,0,hit,0
+21,9,0,double down,0
+21,9,0,surrender,0
+21,10,0,stand,59.7
+21,10,0,hit,0
+21,10,0,double down,-20.0
+21,10,0,surrender,0
+21,10,1,stand,2206.8557653216635
+21,10,1,hit,97.22166012157516
+21,10,1,double down,-21.865811287709477
+21,10,1,surrender,53.0572411543364
+22,1,0,stand,0
+22,1,0,hit,0
+22,1,0,double down,0
+22,1,0,surrender,0
+22,1,1,stand,0
+22,1,1,hit,0
+22,1,1,double down,0
+22,1,1,surrender,0
+22,2,0,stand,0
+22,2,0,hit,0
+22,2,0,double down,0
+22,2,0,surrender,0
+22,3,0,stand,0
+22,3,0,hit,0
+22,3,0,double down,0
+22,3,0,surrender,0
+22,3,1,stand,0
+22,3,1,hit,0
+22,3,1,double down,0
+22,3,1,surrender,0
+22,4,0,stand,0
+22,4,0,hit,0
+22,4,0,double down,0
+22,4,0,surrender,0
+22,4,1,stand,0
+22,4,1,hit,0
+22,4,1,double down,0
+22,4,1,surrender,0
+22,5,0,stand,0
+22,5,0,hit,0
+22,5,0,double down,0
+22,5,0,surrender,0
+22,6,1,stand,0
+22,6,1,hit,0
+22,6,1,double down,0
+22,6,1,surrender,0
+22,6,0,stand,0
+22,6,0,hit,0
+22,6,0,double down,0
+22,6,0,surrender,0
+22,7,0,stand,0
+22,7,0,hit,0
+22,7,0,double down,0
+22,7,0,surrender,0
+22,7,1,stand,0
+22,7,1,hit,0
+22,7,1,double down,0
+22,7,1,surrender,0
+22,8,0,stand,0
+22,8,0,hit,0
+22,8,0,double down,0
+22,8,0,surrender,0
+22,8,1,stand,0
+22,8,1,hit,0
+22,8,1,double down,0
+22,8,1,surrender,0
+22,9,0,stand,0
+22,9,0,hit,0
+22,9,0,double down,0
+22,9,0,surrender,0
+22,9,1,stand,0
+22,9,1,hit,0
+22,9,1,double down,0
+22,9,1,surrender,0
+22,10,0,stand,0
+22,10,0,hit,0
+22,10,0,double down,0
+22,10,0,surrender,0
+23,1,0,stand,0
+23,1,0,hit,0
+23,1,0,double down,0
+23,1,0,surrender,0
+23,1,1,stand,0
+23,1,1,hit,0
+23,1,1,double down,0
+23,1,1,surrender,0
+23,2,0,stand,0
+23,2,0,hit,0
+23,2,0,double down,0
+23,2,0,surrender,0
+23,2,1,stand,0
+23,2,1,hit,0
+23,2,1,double down,0
+23,2,1,surrender,0
+23,3,0,stand,0
+23,3,0,hit,0
+23,3,0,double down,0
+23,3,0,surrender,0
+23,3,1,stand,0
+23,3,1,hit,0
+23,3,1,double down,0
+23,3,1,surrender,0
+23,4,0,stand,0
+23,4,0,hit,0
+23,4,0,double down,0
+23,4,0,surrender,0
+23,5,0,stand,0
+23,5,0,hit,0
+23,5,0,double down,0
+23,5,0,surrender,0
+23,6,0,stand,0
+23,6,0,hit,0
+23,6,0,double down,0
+23,6,0,surrender,0
+23,6,1,stand,0
+23,6,1,hit,0
+23,6,1,double down,0
+23,6,1,surrender,0
+23,7,0,stand,0
+23,7,0,hit,0
+23,7,0,double down,0
+23,7,0,surrender,0
+23,7,1,stand,0
+23,7,1,hit,0
+23,7,1,double down,0
+23,7,1,surrender,0
+23,8,0,stand,0
+23,8,0,hit,0
+23,8,0,double down,0
+23,8,0,surrender,0
+23,9,0,stand,0
+23,9,0,hit,0
+23,9,0,double down,0
+23,9,0,surrender,0
+23,9,1,stand,0
+23,9,1,hit,0
+23,9,1,double down,0
+23,9,1,surrender,0
+23,10,1,stand,0
+23,10,1,hit,0
+23,10,1,double down,0
+23,10,1,surrender,0
+23,10,0,stand,0
+23,10,0,hit,0
+23,10,0,double down,0
+23,10,0,surrender,0
+24,1,0,stand,0
+24,1,0,hit,0
+24,1,0,double down,0
+24,1,0,surrender,0
+24,2,0,stand,0
+24,2,0,hit,0
+24,2,0,double down,0
+24,2,0,surrender,0
+24,3,0,stand,0
+24,3,0,hit,0
+24,3,0,double down,0
+24,3,0,surrender,0
+24,3,1,stand,0
+24,3,1,hit,0
+24,3,1,double down,0
+24,3,1,surrender,0
+24,4,0,stand,0
+24,4,0,hit,0
+24,4,0,double down,0
+24,4,0,surrender,0
+24,4,1,stand,0
+24,4,1,hit,0
+24,4,1,double down,0
+24,4,1,surrender,0
+24,5,1,stand,0
+24,5,1,hit,0
+24,5,1,double down,0
+24,5,1,surrender,0
+24,5,0,stand,0
+24,5,0,hit,0
+24,5,0,double down,0
+24,5,0,surrender,0
+24,6,0,stand,0
+24,6,0,hit,0
+24,6,0,double down,0
+24,6,0,surrender,0
+24,6,1,stand,0
+24,6,1,hit,0
+24,6,1,double down,0
+24,6,1,surrender,0
+24,7,0,stand,0
+24,7,0,hit,0
+24,7,0,double down,0
+24,7,0,surrender,0
+24,8,0,stand,0
+24,8,0,hit,0
+24,8,0,double down,0
+24,8,0,surrender,0
+24,9,0,stand,0
+24,9,0,hit,0
+24,9,0,double down,0
+24,9,0,surrender,0
+24,10,0,stand,0
+24,10,0,hit,0
+24,10,0,double down,0
+24,10,0,surrender,0
+24,10,1,stand,0
+24,10,1,hit,0
+24,10,1,double down,0
+24,10,1,surrender,0
+25,2,0,stand,0
+25,2,0,hit,0
+25,2,0,double down,0
+25,2,0,surrender,0
+25,2,1,stand,0
+25,2,1,hit,0
+25,2,1,double down,0
+25,2,1,surrender,0
+25,3,0,stand,0
+25,3,0,hit,0
+25,3,0,double down,0
+25,3,0,surrender,0
+25,3,1,stand,0
+25,3,1,hit,0
+25,3,1,double down,0
+25,3,1,surrender,0
+25,4,0,stand,0
+25,4,0,hit,0
+25,4,0,double down,0
+25,4,0,surrender,0
+25,5,0,stand,0
+25,5,0,hit,0
+25,5,0,double down,0
+25,5,0,surrender,0
+25,5,1,stand,0
+25,5,1,hit,0
+25,5,1,double down,0
+25,5,1,surrender,0
+25,6,0,stand,0
+25,6,0,hit,0
+25,6,0,double down,0
+25,6,0,surrender,0
+25,6,1,stand,0
+25,6,1,hit,0
+25,6,1,double down,0
+25,6,1,surrender,0
+25,7,0,stand,0
+25,7,0,hit,0
+25,7,0,double down,0
+25,7,0,surrender,0
+25,8,0,stand,0
+25,8,0,hit,0
+25,8,0,double down,0
+25,8,0,surrender,0
+25,9,0,stand,0
+25,9,0,hit,0
+25,9,0,double down,0
+25,9,0,surrender,0
+25,9,1,stand,0
+25,9,1,hit,0
+25,9,1,double down,0
+25,9,1,surrender,0
+25,10,0,stand,0
+25,10,0,hit,0
+25,10,0,double down,0
+25,10,0,surrender,0
+26,1,0,stand,0
+26,1,0,hit,0
+26,1,0,double down,0
+26,1,0,surrender,0
+26,2,0,stand,0
+26,2,0,hit,0
+26,2,0,double down,0
+26,2,0,surrender,0
+26,2,1,stand,0
+26,2,1,hit,0
+26,2,1,double down,0
+26,2,1,surrender,0
+26,3,0,stand,0
+26,3,0,hit,0
+26,3,0,double down,0
+26,3,0,surrender,0
+26,4,1,stand,0
+26,4,1,hit,0
+26,4,1,double down,0
+26,4,1,surrender,0
+26,4,0,stand,0
+26,4,0,hit,0
+26,4,0,double down,0
+26,4,0,surrender,0
+26,5,0,stand,0
+26,5,0,hit,0
+26,5,0,double down,0
+26,5,0,surrender,0
+26,6,0,stand,0
+26,6,0,hit,0
+26,6,0,double down,0
+26,6,0,surrender,0
+26,6,1,stand,0
+26,6,1,hit,0
+26,6,1,double down,0
+26,6,1,surrender,0
+26,7,0,stand,0
+26,7,0,hit,0
+26,7,0,double down,0
+26,7,0,surrender,0
+26,8,0,stand,0
+26,8,0,hit,0
+26,8,0,double down,0
+26,8,0,surrender,0
+26,8,1,stand,0
+26,8,1,hit,0
+26,8,1,double down,0
+26,8,1,surrender,0
+26,9,0,stand,0
+26,9,0,hit,0
+26,9,0,double down,0
+26,9,0,surrender,0
+26,9,1,stand,0
+26,9,1,hit,0
+26,9,1,double down,0
+26,9,1,surrender,0
+26,10,0,stand,0
+26,10,0,hit,0
+26,10,0,double down,0
+26,10,0,surrender,0
+27,1,0,stand,0
+27,1,0,hit,0
+27,1,0,double down,0
+27,1,0,surrender,0
+27,1,1,stand,0
+27,1,1,hit,0
+27,1,1,double down,0
+27,1,1,surrender,0
+27,2,0,stand,0
+27,2,0,hit,0
+27,2,0,double down,0
+27,2,0,surrender,0
+27,3,0,stand,0
+27,3,0,hit,0
+27,3,0,double down,0
+27,3,0,surrender,0
+27,4,1,stand,0
+27,4,1,hit,0
+27,4,1,double down,0
+27,4,1,surrender,0
+27,5,0,stand,0
+27,5,0,hit,0
+27,5,0,double down,0
+27,5,0,surrender,0
+27,6,0,stand,0
+27,6,0,hit,0
+27,6,0,double down,0
+27,6,0,surrender,0
+27,7,0,stand,0
+27,7,0,hit,0
+27,7,0,double down,0
+27,7,0,surrender,0
+27,8,0,stand,0
+27,8,0,hit,0
+27,8,0,double down,0
+27,8,0,surrender,0
+27,9,0,stand,0
+27,9,0,hit,0
+27,9,0,double down,0
+27,9,0,surrender,0
+27,10,0,stand,0
+27,10,0,hit,0
+27,10,0,double down,0
+27,10,0,surrender,0
+27,10,1,stand,0
+27,10,1,hit,0
+27,10,1,double down,0
+27,10,1,surrender,0
+28,1,0,stand,0
+28,1,0,hit,0
+28,1,0,double down,0
+28,1,0,surrender,0
+28,2,0,stand,0
+28,2,0,hit,0
+28,2,0,double down,0
+28,2,0,surrender,0
+28,3,1,stand,0
+28,3,1,hit,0
+28,3,1,double down,0
+28,3,1,surrender,0
+28,4,1,stand,0
+28,4,1,hit,0
+28,4,1,double down,0
+28,4,1,surrender,0
+28,7,0,stand,0
+28,7,0,hit,0
+28,7,0,double down,0
+28,7,0,surrender,0
+28,8,0,stand,0
+28,8,0,hit,0
+28,8,0,double down,0
+28,8,0,surrender,0
+28,9,0,stand,0
+28,9,0,hit,0
+28,9,0,double down,0
+28,9,0,surrender,0
+28,10,0,stand,0
+28,10,0,hit,0
+28,10,0,double down,0
+28,10,0,surrender,0
+29,1,0,stand,0
+29,1,0,hit,0
+29,1,0,double down,0
+29,1,0,surrender,0
+29,1,1,stand,0
+29,1,1,hit,0
+29,1,1,double down,0
+29,1,1,surrender,0
+29,3,0,stand,0
+29,3,0,hit,0
+29,3,0,double down,0
+29,3,0,surrender,0
+29,4,1,stand,0
+29,4,1,hit,0
+29,4,1,double down,0
+29,4,1,surrender,0
+29,5,0,stand,0
+29,5,0,hit,0
+29,5,0,double down,0
+29,5,0,surrender,0
+29,6,0,stand,0
+29,6,0,hit,0
+29,6,0,double down,0
+29,6,0,surrender,0
+29,7,0,stand,0
+29,7,0,hit,0
+29,7,0,double down,0
+29,7,0,surrender,0
+29,8,1,stand,0
+29,8,1,hit,0
+29,8,1,double down,0
+29,8,1,surrender,0
+29,9,0,stand,0
+29,9,0,hit,0
+29,9,0,double down,0
+29,9,0,surrender,0
+29,10,0,stand,0
+29,10,0,hit,0
+29,10,0,double down,0
+29,10,0,surrender,0
+30,1,0,stand,0
+30,1,0,hit,0
+30,1,0,double down,0
+30,1,0,surrender,0
+30,2,0,stand,0
+30,2,0,hit,0
+30,2,0,double down,0
+30,2,0,surrender,0
+30,3,0,stand,0
+30,3,0,hit,0
+30,3,0,double down,0
+30,3,0,surrender,0
+30,5,0,stand,0
+30,5,0,hit,0
+30,5,0,double down,0
+30,5,0,surrender,0
+30,7,0,stand,0
+30,7,0,hit,0
+30,7,0,double down,0
+30,7,0,surrender,0
+30,10,0,stand,0
+30,10,0,hit,0
+30,10,0,double down,0
+30,10,0,surrender,0

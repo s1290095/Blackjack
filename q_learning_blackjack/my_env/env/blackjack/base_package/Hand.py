@@ -30,7 +30,7 @@ class Hand:
     def sum_point(self):
         # 手札のポイントを計算
         total = sum(card.point for card in self.hand)
-        if self.is_soft_hand and total + 10 <= 21:
+        if self.is_soft_hand and (total + 10 <= 21):
             return total + 10
         return total
 
