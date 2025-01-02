@@ -23,10 +23,10 @@ class Game:
         self.dealer.init_dealer()
         self.player.done = False
 
-    def bet(self):
+    def bet(self, bet):
         self.random_player1.bet()
         self.random_player2.bet()
-        self.player.bet(bet=100)
+        self.player.bet(bet)
 
     def deal(self, n=2):
         # Player, Dealerにカードを配る

@@ -27,21 +27,24 @@ class BlackJackEnv(gym.Env):
         ])
         self.observation_space = gym.spaces.Box(low=low, high=high)
         self.reward_range = [-10000, 10000]  # 報酬の最小値と最大値のリスト
-
+        self.bet_range = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
+        
         self.done = False
-        self.reset()
 
     def reset(self):
         # 状態を初期化し，初期の観測値を返す
-        # 諸々の変数を初期化する
         self.done = False
+        self.current_bet = 0
 
         self.game.reset_game()
-        self.game.bet()
-        # self.game.player.chip.balance = 1000  # 学習中は所持金がゼロになることはないとする
         self.game.deal()
-        # self.bet_done = True
 
+        return self.observe()
+    
+    def bet(self, bet):
+        
+        self.current_bet = bet  # 現在のベット額を記録
+        self.game.bet(bet)
         return self.observe()
     
     def new_game(self):
@@ -101,6 +104,9 @@ class BlackJackEnv(gym.Env):
         # 勝ちかつブラックジャックの場合、1.5を返す
         if player.judgement == 1 and player.hand.is_blackjack:
             return 1.5
+        # バーストの場合は強いペナルティを返す
+        elif player.hand.is_bust():
+            return -1.5
         return player.judgement
 
     def is_done(self):
@@ -110,11 +116,13 @@ class BlackJackEnv(gym.Env):
             return False
 
     def observe(self):
+        # 観測値にベット額を含める
         observation = tuple([
             self.game.player.hand.calc_final_point(),
             self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
-            int(self.game.player.hand.is_soft_hand)])
-
+            int(self.game.player.hand.is_soft_hand),
+            self.current_bet  # 現在のベット額
+        ])
         return observation
     
 # 環境を登録
