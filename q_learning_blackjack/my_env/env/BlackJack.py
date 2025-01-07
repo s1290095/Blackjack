@@ -63,7 +63,8 @@ class Game:
             player.split(self.deck.draw_card()) # splitの手札にカードを追加
             player.hand.add_card(self.deck.draw_card()) # 通常の手札にカードを追加
 
-    def player_split_step(self, action, player):
+    def player_split_step(self, action):
+        player = self.player
         # Stand, Hit, Double down, Surrender, splitに応じた処理
         if action == "h":
             player.split_hit(self.deck.draw_card())

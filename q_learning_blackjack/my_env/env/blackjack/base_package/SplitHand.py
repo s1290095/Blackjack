@@ -14,6 +14,7 @@ class SplitHand:
         # 手札にカードを加える処理
         self.hand.append(card)
         self.check_soft_hand()
+        self.check_pair_hand()
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
@@ -26,6 +27,11 @@ class SplitHand:
 
     def sum_point(self):
         # 手札のポイントを計算
+        if not self.hand:
+            return 0
+        if any(card is None for card in self.hand):
+            return 0
+        
         total = sum(card.point for card in self.hand)
         if self.is_soft_hand and total + 10 <= 21:
             return total + 10

@@ -62,6 +62,7 @@ class BasePlayer:
         self.is_surrender = True
 
     def split(self, card):
+        print(f"{self.hand.hand}")
         self.split_chip.bet_chip(self.chip.bet)
         self.hand.split_hand.add_card(self.hand.hand.pop(-1))
         self.hand.split_hand.add_card(card)
@@ -72,7 +73,6 @@ class BasePlayer:
         # Hit時の処理（カードを引き、バスト判定）
         split_hand = self.hand.split_hand
         split_hand.add_card(card)
-        print(f"手札: {split_hand.hand} 合計: {split_hand.sum_point()}")
         if split_hand.is_bust():
             self.hand.split_done = True  # バストした場合、ターン終了
 
@@ -111,9 +111,6 @@ class BasePlayer:
         if self.is_surrender:
             self.judgement = 0
 
-        if self.hand.is_split:
-            self.split_judge(dealer)
-
     def pay_chip(self):
         # Chipの精算
         if self.judgement == 1:
@@ -122,9 +119,6 @@ class BasePlayer:
             self.chip.pay_chip_lose()
         else:
             self.chip.pay_chip_push()
-
-        if self.hand.is_split:
-            self.split_pay_chip()
 
     def split_judge(self, dealer):
         split_hand = self.hand.split_hand

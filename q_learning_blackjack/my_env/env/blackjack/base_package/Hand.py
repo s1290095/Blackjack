@@ -21,6 +21,10 @@ class Hand:
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
+        if not self.hand:
+            return 
+        if any(card is None for card in self.hand):
+            return 
         self.is_soft_hand = any(card.rank == 1 for card in self.hand)  # Aが含まれているとソフトハンド
 
     def check_blackjack(self):
@@ -28,8 +32,12 @@ class Hand:
             self.is_blackjack = True
 
     def sum_point(self):
-        # 手札のポイントを計算
-        total = sum(card.point for card in self.hand)
+        if not self.hand:
+            return 0
+        if any(card is None for card in self.hand):
+            return 0
+
+        total = sum(card.point for card in self.hand if card is not None)
         if self.is_soft_hand and (total + 10 <= 21):
             return total + 10
         return total

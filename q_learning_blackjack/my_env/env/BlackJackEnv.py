@@ -13,7 +13,7 @@ class BlackJackEnv(gym.Env):
         self.game = Game()
 
         # action_space, observation_space, reward_range を設定する
-        self.action_space = gym.spaces.Discrete(4)  # hit, stand, double down, surrender
+        self.action_space = gym.spaces.Discrete(5)  # hit, stand, double down, surrender, split
 
         high = np.array([
             30,  # player max
@@ -52,8 +52,38 @@ class BlackJackEnv(gym.Env):
 
     def step(self, action):
         # action を実行し，結果を返す
-        # 1ステップ進める処理を記述．戻り値はobservation, reward, done（ゲーム終了したか）, info(追加の情報の辞書)
+        if action == 0:
+            action_str = 'st'  # Stand
+        elif action == 1:
+            action_str = 'h'  # Hit
+        elif action == 2:
+            action_str = 'dd'  # Double down
+        elif action == 3:
+            action_str = 'sr'  # Surrender
+        elif action == 4:
+            action_str = 'sp'  # Split
+        else:
+            print(action)
+            print("未定義のActionです")
+            print(self.observe())
 
+        self.game.player_step(action_str)
+
+        if self.game.player.done:
+            # プレーヤーのターンが終了したとき
+            self.game.dealer_turn()
+            reward = self.get_reward()
+            self.game.check_deck()
+        else:
+            # プレーヤーのターンを継続するとき
+            reward = 0
+
+        observation = self.observe()
+        self.done = self.is_done()
+        return observation, reward, self.done, {}
+    
+    def split_step(self, action):
+        # action を実行し，結果を返す
         if action == 0:
             action_str = 'st'  # Stand
         elif action == 1:
@@ -67,21 +97,16 @@ class BlackJackEnv(gym.Env):
             print("未定義のActionです")
             print(self.observe())
 
-        self.game.player_step(action=action_str)
+        self.game.player_split_step(action_str)
 
-        if self.game.player.done:
-            # プレーヤーのターンが終了したとき
-            self.game.dealer_turn()
-            self.game.judge()
-            reward = self.get_reward()
+        if self.game.player.hand.split_done:
+            reward = self.get_split_reward()
             self.game.check_deck()
-
         else:
             # プレーヤーのターンを継続するとき
             reward = 0
 
-        observation = self.observe()
-        self.done = self.is_done()
+        observation = self.split_observe()
         return observation, reward, self.done, {}
 
     def render(self, mode='human', close=False):
@@ -99,15 +124,29 @@ class BlackJackEnv(gym.Env):
 
     def get_reward(self):
         # 報酬を返す
+        self.game.judge()
         self.game.pay()
         player = self.game.player
-        # 勝ちかつブラックジャックの場合、1.5を返す
+
+        # 通常の報酬ロジック
         if player.judgement == 1 and player.hand.is_blackjack:
             return 1.5
-        # バーストの場合は強いペナルティを返す
         elif player.hand.is_bust():
             return -1.5
         return player.judgement
+    
+    def get_split_reward(self):
+        # 報酬を返す
+        player = self.game.player
+        player.split_judge(self.game.dealer)
+        player.split_pay_chip()
+        
+        # 通常の報酬ロジック
+        if player.split_judgement == 1 and player.hand.split_hand.is_blackjack:
+            return 1.5
+        elif player.hand.split_hand.is_bust():
+            return -1.5
+        return player.split_judgement
 
     def is_done(self):
         if self.game.player.done:
@@ -121,6 +160,16 @@ class BlackJackEnv(gym.Env):
             self.game.player.hand.calc_final_point(),
             self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
             int(self.game.player.hand.is_soft_hand),
+            self.current_bet  # 現在のベット額
+        ])
+        return observation
+    
+    def split_observe(self):
+        # 観測値にベット額を含める
+        observation = tuple([
+            self.game.player.hand.split_hand.calc_final_point(),
+            self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
+            int(self.game.player.hand.split_hand.is_soft_hand),
             self.current_bet  # 現在のベット額
         ])
         return observation

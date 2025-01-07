@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def main():
     game_manager = GameManager()
-    N = 30000
+    N = 50000
     num = input("使用する戦略を選んでください:1 基本戦略, 2 カードカウンティング:")
     print(num)
     label = ""
@@ -46,6 +46,7 @@ def main():
     print("BlackJackを終了します")
     print(f"{game.game_count+1}回ゲームをしました")
     print(f"{label}の総BET数：{player.chip.balance}, ペイアウト率：{player.get_payput_ratio()}, split回数：{player.split_num}")
+    print(f"勝率：{(player.win_num / N)*100}")
     print("")
 
     # 戦略エージェントの総BET数の推移データ
