@@ -1,6 +1,6 @@
-from base_package.Hand import Hand
-from base_package.Chip import Chip
-from GameManager import GameManager
+from my_env.env.blackjack.base_package.Hand import Hand
+from my_env.env.blackjack.base_package.Chip import Chip
+from my_env.env.blackjack.GameManager import GameManager
 
 class BasePlayer:
     def __init__(self):
@@ -21,10 +21,8 @@ class BasePlayer:
         self.split_num = 0
         self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
 
-    def init_player(self, discards):
+    def init_player(self):
         # 手札や各フラグを初期化する
-        for card in self.hand.hand:
-            discards.add_card(card)
         self.hand = Hand()
         self.done = False
         self.is_surrender = False
@@ -64,6 +62,7 @@ class BasePlayer:
         self.is_surrender = True
 
     def split(self, card):
+        print(f"{self.hand.hand}")
         self.split_chip.bet_chip(self.chip.bet)
         self.hand.split_hand.add_card(self.hand.hand.pop(-1))
         self.hand.split_hand.add_card(card)
@@ -74,7 +73,6 @@ class BasePlayer:
         # Hit時の処理（カードを引き、バスト判定）
         split_hand = self.hand.split_hand
         split_hand.add_card(card)
-        print(f"手札: {split_hand.hand} 合計: {split_hand.sum_point()}")
         if split_hand.is_bust():
             self.hand.split_done = True  # バストした場合、ターン終了
 
@@ -97,62 +95,56 @@ class BasePlayer:
     def judge(self, dealer):
         if self.hand.is_bust():
             self.lose_num += 1
-            self.judgment = -1
+            self.judgement = -1
         elif dealer.hand.is_bust():
             self.win_num += 1
-            self.judgment = 1
+            self.judgement = 1
         elif self.hand.calc_final_point() > dealer.hand.calc_final_point():
             self.win_num += 1
-            self.judgment = 1
+            self.judgement = 1
         elif self.hand.calc_final_point() < dealer.hand.calc_final_point():
             self.lose_num += 1
-            self.judgment = -1
+            self.judgement = -1
         else:
             self.draw_num += 1
-            self.judgment = 0
+            self.judgement = 0
         if self.is_surrender:
             self.judgement = 0
 
-        if self.hand.is_split:
-            self.split_judge(dealer)
-
     def pay_chip(self):
         # Chipの精算
-        if self.judgment == 1:
+        if self.judgement == 1:
             self.chip.pay_chip_win(self.hand.is_blackjack)
-        elif self.judgment == -1:
+        elif self.judgement == -1:
             self.chip.pay_chip_lose()
         else:
             self.chip.pay_chip_push()
-
-        if self.hand.is_split:
-            self.split_pay_chip()
 
     def split_judge(self, dealer):
         split_hand = self.hand.split_hand
         if split_hand.is_bust():
             self.lose_num += 1
-            self.split_judgment = -1
+            self.split_judgement = -1
         elif dealer.hand.is_bust():
             self.win_num += 1
-            self.split_judgment = 1
+            self.split_judgement = 1
         elif split_hand.calc_final_point() > dealer.hand.calc_final_point():
             self.win_num += 1
-            self.split_judgment = 1
+            self.split_judgement = 1
         elif split_hand.calc_final_point() < dealer.hand.calc_final_point():
             self.lose_num += 1
-            self.split_judgment = -1
+            self.split_judgement = -1
         else:
             self.draw_num += 1
-            self.split_judgment = 0
+            self.split_judgement = 0
         if self.is_surrender:
-            self.split_judgment = 0
+            self.split_judgement = -0.5
 
     def split_pay_chip(self):
         # Chipの精算
-        if self.split_judgment == 1:
+        if self.split_judgement == 1:
             self.split_chip.pay_chip_win(self.hand.split_hand.is_blackjack)
-        elif self.split_judgment == -1:
+        elif self.split_judgement == -1:
             self.split_chip.pay_chip_lose()
         else:
             self.split_chip.pay_chip_push()

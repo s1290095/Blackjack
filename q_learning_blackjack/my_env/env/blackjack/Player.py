@@ -1,4 +1,4 @@
-from blackjack.base_package.BasePlayer import BasePlayer
+from my_env.env.blackjack.base_package.BasePlayer import BasePlayer
 
 class Player(BasePlayer):
 
@@ -13,14 +13,17 @@ class Player(BasePlayer):
 
     def pay_chip(self):
         # Chipの精算
-        if self.judgment == 1:
+        refund_bet = 0
+        if self.judgement == 1:
             self.game_manager.print("playerの勝ちです")
-            self.chip.pay_chip_win()
-        elif self.judgment == -1:
+            refund_bet = self.chip.pay_chip_win(self.hand.is_blackjack)
+        elif self.judgement == -1:
             self.game_manager.print("playerの負けです")
-            self.chip.pay_chip_lose()
+            refund_bet = self.chip.pay_chip_lose()
         else:
             self.game_manager.print("playerの引き分けです")
-            self.chip.pay_chip_push()
+            refund_bet = self.chip.pay_chip_push()
 
         self.game_manager.print(f"player現在のチップ：{self.chip.balance}")
+
+        return refund_bet

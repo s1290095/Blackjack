@@ -1,7 +1,7 @@
 import random
 import copy
-from base_package.Card import Card
-from GameManager import GameManager
+from my_env.env.blackjack.base_package.Card import Card
+from my_env.env.blackjack.GameManager import GameManager
 
 class Deck:
     '''

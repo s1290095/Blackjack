@@ -1,6 +1,6 @@
-from base_package.Hand import Hand
-from base_package.Chip import Chip
-from GameManager import GameManager
+from my_env.env.blackjack.base_package.Hand import Hand
+from my_env.env.blackjack.base_package.Chip import Chip
+from my_env.env.blackjack.GameManager import GameManager
 
 class Dealer:
     def __init__(self):
@@ -8,11 +8,8 @@ class Dealer:
         self.chip = Chip()
         self.game_manager = GameManager()
 
-    def init_dealer(self, discards):
+    def init_dealer(self):
         # 手札や各フラグを初期化する
-        for hand in self.hand.hand:
-            discards.add_card(hand)
-
         self.hand = Hand()
         self.done = False
 
