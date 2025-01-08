@@ -107,7 +107,7 @@ class QLearningAgent(Agent):
         self.bet_Q = defaultdict(lambda: [0.1] * len(env.bet_range))  # ベット用Qテーブル
 
         for e in range(episode_count):
-            if e % output_interval == 0 : # output_interval回ごとにゲームをリセット
+            if episode_count - e == output_interval: # output_interval回ごとにゲームをリセット
                 env.new_game()
             state = env.reset()  # ベット額を環境に設定
             bet = self.bet_policy(state, env.bet_range)  # ベット額を選択
@@ -156,7 +156,7 @@ class QLearningAgent(Agent):
 
         player = env.game.player
         print(f"ペイアウト率：{player.get_payput_ratio()}")
-        print(f"勝率：{(player.win_num / 50000)*100}")
+        print(f"勝率：{(player.win_num / output_interval)*100}")
         # 戦略エージェントの勝率の割合
         fig, ax1 = plt.subplots()
         win_rate_labels = ["win", "draw", "lose"]
@@ -252,7 +252,7 @@ def train():
     """
     env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, output_interval=4950000, episode_count=5000000, report_interval=10000)
+    agent.learn(env, output_interval=5000, episode_count=500000, report_interval=1000)
     agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.save_bet_q_table_to_csv()
     agent.show_reward_log(interval=500)

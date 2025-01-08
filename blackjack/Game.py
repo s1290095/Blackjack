@@ -45,8 +45,8 @@ class Game:
                 self.player.deal(self.deck.draw_card(), self.discards)
             self.dealer.deal(self.deck.draw_card())
 
-    # 機械エージェントのアクション
-    def mc_player_turn(self):
+    # 基本戦略エージェントのアクション
+    def basic_player_turn(self):
         player = self.player
         while not player.done:
             action = player.action(self.dealer.hand.hand[0].get_point())
@@ -54,6 +54,17 @@ class Game:
             if player.hand.is_split:
                 while not player.hand.split_done:
                     action = player.split_action(self.dealer.hand.hand[0].get_point())
+                    self.player_split_step(action, player)
+    
+    # カードカウンティング戦略エージェントのアクション
+    def counting_player_turn(self):
+        player = self.player
+        while not player.done:
+            action = player.action(self.dealer.hand.hand[0].get_point(), self.discards.high_row)
+            self.player_step(action, player)
+            if player.hand.is_split:
+                while not player.hand.split_done:
+                    action = player.split_action(self.dealer.hand.hand[0].get_point(), self.discards.high_row)
                     self.player_split_step(action, player)
 
     # ランダムエージェントのアクション

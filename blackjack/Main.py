@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def main():
     game_manager = GameManager()
-    N = 50000
+    N = int(input("何回試行するか入力してください："))
     num = input("使用する戦略を選んでください:1 基本戦略, 2 カードカウンティング:")
     print(num)
     label = ""
@@ -31,7 +31,10 @@ def main():
         game.reset_game()       # いろいろをリセットする
         game.bet(num)              # 賭ける
         game.deal(num)             # カードを配る
-        game.mc_player_turn()
+        if num == '1':
+            game.basic_player_turn()
+        else:
+            game.counting_player_turn()
         game_manager.print("ランダムプレイヤーのターンです")
         game.random_player_turn()   # ランダムプレイヤーのターン
         game_manager.print("ディーラーのターンです")
