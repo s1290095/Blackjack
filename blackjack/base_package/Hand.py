@@ -21,7 +21,9 @@ class Hand:
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
-        self.is_soft_hand = any(card.rank == 1 for card in self.hand)  # Aが含まれているとソフトハンド
+        total = sum(card.point for card in self.hand)
+        has_ace = any(card.rank == 1 for card in self.hand)
+        self.is_soft_hand = has_ace and total + 10 <= 21
 
     def check_blackjack(self):
         if self.sum_point() == 21:

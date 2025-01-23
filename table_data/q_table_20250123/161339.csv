@@ -1,0 +1,6 @@
+player_hand,dealer_hand,is_soft_hand,Action,Q-Value
+player_points,dealer_upcard,is_soft_hand,stand,-0.36541225591973514
+player_points,dealer_upcard,is_soft_hand,hit,-0.13160308386152395
+player_points,dealer_upcard,is_soft_hand,double down,-0.2956710979225775
+player_points,dealer_upcard,is_soft_hand,surrender,-0.001764688332897771
+player_points,dealer_upcard,is_soft_hand,surrender,8.205075478212835e-05

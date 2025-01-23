@@ -39,13 +39,17 @@ class BlackJackEnv(gym.Env):
         self.game.reset_game()
         self.game.deal()
 
-        return self.observe()
+        observation = self.observe()
+
+        state = observation["state"]
+        bet_state = observation["bet"]
+
+        return state, bet_state
     
     def bet(self, bet):
         
         self.current_bet = bet  # 現在のベット額を記録
         self.game.bet(bet)
-        return self.observe()
     
     def new_game(self):
         self.game = Game()
@@ -71,16 +75,23 @@ class BlackJackEnv(gym.Env):
 
         if self.game.player.done:
             # プレーヤーのターンが終了したとき
+            self.game.random_player_turn()
             self.game.dealer_turn()
-            reward = self.get_reward()
+            q_reward, bet_reward = self.get_reward()
             self.game.check_deck()
         else:
             # プレーヤーのターンを継続するとき
-            reward = 0
+            q_reward = 0
+            bet_reward = 0
 
-        observation = self.observe()
+        reward = {
+            "reward" : q_reward,
+            "bet_reward" : bet_reward
+        }
+
+        state = self.observe()
         self.done = self.is_done()
-        return observation, reward, self.done, {}
+        return state, reward, self.done, {}
     
     def split_step(self, action):
         # action を実行し，結果を返す
@@ -100,14 +111,20 @@ class BlackJackEnv(gym.Env):
         self.game.player_split_step(action_str)
 
         if self.game.player.hand.split_done:
-            reward = self.get_split_reward()
+            q_reward, bet_reward = self.get_split_reward()
             self.game.check_deck()
         else:
             # プレーヤーのターンを継続するとき
-            reward = 0
+            q_reward = 0
+            bet_reward = 0
 
-        observation = self.split_observe()
-        return observation, reward, self.done, {}
+        reward = {
+            "reward" : q_reward,
+            "bet_reward" : bet_reward
+        }
+
+        state = self.split_observe()
+        return state, reward, self.done, {}
 
     def render(self, mode='human', close=False):
         # 環境を可視化する
@@ -125,28 +142,28 @@ class BlackJackEnv(gym.Env):
     def get_reward(self):
         # 報酬を返す
         self.game.judge()
-        self.game.pay()
+        return_bet = self.game.pay()
         player = self.game.player
 
         # 通常の報酬ロジック
         if player.judgement == 1 and player.hand.is_blackjack:
-            return 1.5
+            return 1.5, return_bet
         elif player.hand.is_bust():
-            return -1.5
-        return player.judgement
+            return -1.5, return_bet
+        return player.judgement, return_bet
     
     def get_split_reward(self):
         # 報酬を返す
         player = self.game.player
         player.split_judge(self.game.dealer)
-        player.split_pay_chip()
+        return_bet = player.split_pay_chip()
         
         # 通常の報酬ロジック
         if player.split_judgement == 1 and player.hand.split_hand.is_blackjack:
-            return 1.5
+            return 1.5, return_bet
         elif player.hand.split_hand.is_bust():
-            return -1.5
-        return player.split_judgement
+            return -1.5, return_bet
+        return player.split_judgement, return_bet
 
     def is_done(self):
         if self.game.player.done:
@@ -155,24 +172,43 @@ class BlackJackEnv(gym.Env):
             return False
 
     def observe(self):
-        # 観測値にベット額を含める
-        observation = tuple([
-            self.game.player.hand.calc_final_point(),
-            self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
-            int(self.game.player.hand.is_soft_hand),
-            self.current_bet  # 現在のベット額
-        ])
-        return observation
+        observation = {
+            'player_points': self.game.player.hand.calc_final_point(),
+            'dealer_upcard': self.game.dealer.hand.hand[0].get_point(),
+            'is_soft_hand': int(self.game.player.hand.is_soft_hand)
+        }
+
+        bet_observation = {
+            'true_count': self.game.discards.get_true_count(),
+            'current_bet': self.current_bet
+        }
+
+        state = {
+            "state" : observation,
+            "bet" : bet_observation
+        }
+
+        return state
     
     def split_observe(self):
         # 観測値にベット額を含める
-        observation = tuple([
-            self.game.player.hand.split_hand.calc_final_point(),
-            self.game.dealer.hand.hand[0].get_point(),  # Dealerのアップカードのみ
-            int(self.game.player.hand.split_hand.is_soft_hand),
-            self.current_bet  # 現在のベット額
-        ])
-        return observation
+        observation = {
+            'player_points': self.game.player.hand.calc_final_point(),
+            'dealer_upcard': self.game.dealer.hand.hand[0].get_point(),
+            'is_soft_hand': int(self.game.player.hand.is_soft_hand)
+        }
+
+        bet_observation = {
+            'true_count': self.game.discards.get_true_count(),
+            'current_bet': self.current_bet
+        }
+
+        state = {
+            "state" : observation,
+            "bet" : bet_observation
+        }
+
+        return state
     
 # 環境を登録
 gym.envs.registration.register(

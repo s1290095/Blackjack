@@ -1,6 +1,4 @@
-from base_package.Deck import Deck
 NUM_DECK = 6
-
 class Discards:
    '''
    既に使用されたカード群
@@ -23,25 +21,6 @@ class Discards:
    def clear_cards(self):
       self.cards.clear()
       self.high_row = 0
-
-   #  ハイローの値からBET額を決定する
-   def decide_bet(self):
-      true_count = self.get_true_count()
-      print(true_count)
-      if true_count < 0 :
-         return 5
-      elif true_count >= 0 and true_count < 5:
-         return 10
-      elif true_count >= 5 and true_count < 10:
-         return 50
-      elif true_count >= 10 and true_count < 15:
-         return 100
-      elif true_count >= 15 and true_count < 20:
-         return 150
-      elif true_count >= 20 and true_count < 25:
-         return 300
-      elif true_count >= 25:
-         return 500
       
    # ハイローを残りデッキ数で割って、トゥルーカウントを算出する
    def get_true_count(self):

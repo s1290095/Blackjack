@@ -3,6 +3,7 @@ from my_env.env.blackjack.Dealer import Dealer
 from my_env.env.blackjack.RandomPlayer import RandomPlayer
 from my_env.env.blackjack.GameManager import GameManager
 from my_env.env.blackjack.Player import Player
+from my_env.env.blackjack.Discards import Discards
 
 class Game:
     def __init__(self):
@@ -11,7 +12,8 @@ class Game:
         self.random_player1 = RandomPlayer()
         self.random_player2 = RandomPlayer()
         self.dealer = Dealer()
-        self.game_manager =GameManager()
+        self.game_manager = GameManager()
+        self.discards = Discards()
         self.judgment = 0  # 1:勝ち，0:引き分け, -1:負け
         self.game_count = 0
 
@@ -30,56 +32,85 @@ class Game:
 
     def deal(self, n=2):
         # Player, Dealerにカードを配る
-        for _ in range(n):
-            self.random_player1.deal(self.deck.draw_card())
-            self.random_player2.deal(self.deck.draw_card())
-            self.player.deal(self.deck.draw_card())
-            self.dealer.deal(self.deck.draw_card())
+        for i in range(n):
+            card1 = self.deck.draw_card()
+            card2 = self.deck.draw_card()
+            card3 = self.deck.draw_card()
+            card4 = self.deck.draw_card()
+            self.random_player1.deal(card1)
+            self.random_player2.deal(card2)
+            self.player.deal(card3)
+            self.dealer.deal(card4)
+
+            # ディーラーのアップカードは保存
+            if i == 1:
+                self.discards.add_card(card4)
 
     # ランダムエージェントのアクション
     def random_player_turn(self):
         # ランダムプレイヤー1のターン
         while not self.random_player1.done:
             action = self.random_player1.action()
-            self.player_step(action, self.random_player1)
+            self.ra_player_step(action, self.random_player1)
 
         # ランダムプレイヤー2のターン
         while not self.random_player2.done:
             action = self.random_player2.action()
-            self.player_step(action, self.random_player2)
+            self.ra_player_step(action, self.random_player2)
 
     def player_step(self, action):
         player = self.player
-        # Stand, Hit, Double down, Surrender, splitに応じた処理
-        if action == "h":
-            player.hit(self.deck.draw_card())
-        elif action == "st":
-            player.stand()
-        elif action == "dd":
-            player.double_down(self.deck.draw_card())
-        elif action == "sr":
-            player.surrender()
-        elif action == "sp":
-            player.split(self.deck.draw_card()) # splitの手札にカードを追加
-            player.hand.add_card(self.deck.draw_card()) # 通常の手札にカードを追加
+        self.step(action, player)
+
+    def ra_player_step(self, action, player):
+        self.step(action, player)
 
     def player_split_step(self, action):
         player = self.player
         # Stand, Hit, Double down, Surrender, splitに応じた処理
         if action == "h":
-            player.split_hit(self.deck.draw_card())
+            card = self.deck.draw_card()
+            self.discards.add_card(card)
+            player.split_hit(card)
         elif action == "st":
             player.split_stand()
         elif action == "dd":
-            player.split_double_down(self.deck.draw_card())
+            card = self.deck.draw_card()
+            self.discards.add_card(card)
+            player.split_double_down(card)
         elif action == "sr":
             player.split_surrender()
+
+    def step(self, action, player):
+        if action == "h":
+            card = self.deck.draw_card()
+            self.discards.add_card(card)
+            player.hit(card)
+        elif action == "st":
+            player.stand()
+        elif action == "dd":
+            card = self.deck.draw_card()
+            self.discards.add_card(card)
+            player.double_down(card)
+        elif action == "sr":
+            player.surrender()
+        elif action == "sp":
+            card = self.deck.draw_card()
+            split_card = self.deck.draw_card()
+
+            self.discards.add_card(card)
+            self.discards.add_card(split_card)
+
+            player.split(card) # splitの手札にカードを追加
+            player.hand.add_card(split_card) # 通常の手札にカードを追加
 
     def dealer_turn(self):
         # Dealerがポイントが17以上になるまでカードを引く
         self.game_manager.print(f"手札: {self.dealer.hand.hand} 合計: {self.dealer.hand.sum_point()}")
         while self.dealer.hand.sum_point() < 17:
-            self.dealer.hit(self.deck.draw_card())
+            card = self.deck.draw_card()
+            self.discards.add_card(card)
+            self.dealer.hit(card)
 
     def judge(self):
         # 勝敗の判定
@@ -97,3 +128,4 @@ class Game:
     def check_deck(self):
         if self.deck.get_num_deck() <= 52:
             self.deck = Deck()
+            self.discards.clear_cards()

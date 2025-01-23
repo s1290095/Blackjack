@@ -109,9 +109,11 @@ class QLearningAgent(Agent):
         for e in range(episode_count):
             if episode_count - e == output_interval: # output_interval回ごとにゲームをリセット
                 env.new_game()
-            state = env.reset()  # ベット額を環境に設定
-            bet = self.bet_policy(state, env.bet_range)  # ベット額を選択
-            state = env.bet(bet)
+            state, bet_state = env.reset()  # ベット額を環境に設定
+            state = tuple(state)
+            bet_state = tuple(bet_state)
+            bet = self.bet_policy(bet_state, env.bet_range)  # ベット額を選択
+            env.bet(bet)
             done = False
             reward_history = []
 
@@ -120,33 +122,48 @@ class QLearningAgent(Agent):
                     env.render()
 
                 action = self.policy(state, actions, env.game.player.hand.is_pair)  # 行動を選択
-                next_state, reward, done, _ = env.step(action)  # 行動を環境に適用
+                observation, reward, done, _ = env.step(action)  # 行動を環境に適用
+
+                next_state = tuple(observation["state"])
+                bet_state = tuple(observation["bet"])
+                q_reward = reward["reward"]
+                bet_reward = reward["bet_reward"]
 
                 # Q値の更新（アクション）
-                gain = reward + gamma * max(self.Q[next_state])
+                gain = q_reward + gamma * max(self.Q[next_state])
                 estimated = self.Q[state][action]
                 self.Q[state][action] += learning_rate * (gain - estimated)
 
                 # Q値の更新（ベット）
-                gain_bet = reward + gamma * max(self.bet_Q[state])
+                gain_bet = bet_reward + gamma * max(self.bet_Q[state])
                 estimated_bet = self.bet_Q[state][env.bet_range.index(bet)]
                 self.bet_Q[state][env.bet_range.index(bet)] += learning_rate * (gain_bet - estimated_bet)
 
                 state = next_state
-                reward_history.append(reward)
+                reward_history.append(q_reward)
 
             if env.game.player.hand.is_split:
                 while not env.game.player.hand.split_done:
                     action = self.policy(state, actions, False)  # 行動を選択 splitは発生させない
-                    next_state, reward, done, _ = env.split_step(action)  # 行動を環境に適用
+                    observation, reward, done, _ = env.split_step(action)  # 行動を環境に適用
+
+                    next_state = tuple(observation["state"])
+                    bet_state = tuple(observation["bet"])
+                    q_reward = reward["reward"]
+                    bet_reward = reward["bet_reward"]
 
                     # Q値の更新（アクション）
-                    gain = reward + gamma * max(self.Q[next_state])
+                    gain = q_reward + gamma * max(self.Q[next_state])
                     estimated = self.Q[state][action]
                     self.Q[state][action] += learning_rate * (gain - estimated)
 
+                    # Q値の更新（ベット）
+                    gain_bet = bet_reward + gamma * max(self.bet_Q[bet_state])
+                    estimated_bet = self.bet_Q[bet_state][env.bet_range.index(bet)]
+                    self.bet_Q[state][env.bet_range.index(bet)] += learning_rate * (gain_bet - estimated_bet)
+
                     state = next_state
-                    reward_history.append(reward)
+                    reward_history.append(q_reward)
 
             self.log(sum(reward_history))
             self.epsilon = max(0.01, self.epsilon * 0.995)  # 探索率を0.01まで減少
@@ -174,8 +191,13 @@ class QLearningAgent(Agent):
         QテーブルをCSVファイルに保存（player_handでソート済み）
         """
         # 現在の日付をファイル名に付与
-        currentDate = datetime.now().strftime("%Y%m%d%H%M%S")
-        filepath = "table_data/q_table_" + currentDate + ".csv"
+        currentHourMinute = datetime.now().strftime("%H%M%S")
+        currentDate = datetime.now().strftime("%Y%m%d")
+        folderpath = "table_data/q_table_" + currentDate
+
+        os.makedirs(folderpath, exist_ok=True)
+
+        filepath = folderpath + "/" + currentHourMinute + ".csv"
 
         # ソート用リストを作成
         q_table_sorted = []
@@ -217,21 +239,25 @@ class QLearningAgent(Agent):
         QテーブルをCSVファイルに保存（player_handでソート済み）
         """
         # 現在の日付をファイル名に付与
-        currentDate = datetime.now().strftime("%Y%m%d%H%M%S")
-        filepath = "table_bet_data/bet_q_table_" + currentDate + ".csv"
+        currentDate = datetime.now().strftime("%Y%m%d")
+        currentHourMinute = datetime.now().strftime("%H%M%S")
+        folderpath = "table_data/bet_q_table_" + currentDate
+
+        os.makedirs(folderpath, exist_ok=True)
+
+        filepath = folderpath + "/" + currentHourMinute + ".csv"
 
         # ソート用リストを作成
         q_table_sorted = []
-        for state, bet_range in self.bet_Q.items():
-            for bet, q_value in enumerate(bet_range):
-                # 状態をタプルに変換
-                if isinstance(state, str):
-                    states = tuple(map(int, state.strip("()").split(", ")))
-                else:
-                    states = state
+        for state, q_value in self.bet_Q.items():
+            # 状態をタプルに変換
+            if isinstance(state, str):
+                states = tuple(map(int, state.strip("()").split(", ")))
+            else:
+                states = state
 
-                # ソート用リストに追加
-                q_table_sorted.append((states[0], states[1], states[2], bet, q_value))
+            # ソート用リストに追加
+            q_table_sorted.append((states[0], states[1], q_value))
 
         # player_hand（states[0]）で昇順にソート
         q_table_sorted.sort(key=lambda x: (x[0], x[1]))
@@ -240,7 +266,7 @@ class QLearningAgent(Agent):
         with open(filepath, mode="w", newline="") as file:
             writer = csv.writer(file)
             # ヘッダーの書き込み
-            writer.writerow(["player_hand", "dealer_hand", "is_soft_hand", "bet", "Q-Value"])
+            writer.writerow(["true_count", "bet", "Q-Value"])
             for row in q_table_sorted:
                 writer.writerow(row)
 
@@ -252,7 +278,7 @@ def train():
     """
     env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, output_interval=5000, episode_count=500000, report_interval=1000)
+    agent.learn(env, output_interval=10000, episode_count=10000, report_interval=1000)
     agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.save_bet_q_table_to_csv()
     agent.show_reward_log(interval=500)

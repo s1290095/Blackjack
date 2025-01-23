@@ -143,11 +143,11 @@ class BasePlayer:
     def split_pay_chip(self):
         # Chipの精算
         if self.split_judgement == 1:
-            self.split_chip.pay_chip_win(self.hand.split_hand.is_blackjack)
+            return self.split_chip.pay_chip_win(self.hand.split_hand.is_blackjack)
         elif self.split_judgement == -1:
-            self.split_chip.pay_chip_lose()
+            return self.split_chip.pay_chip_lose()
         else:
-            self.split_chip.pay_chip_push()
+            return self.split_chip.pay_chip_push()
 
         # 払い戻し金額/総BET額で算出されるペイアウト率
     def get_payput_ratio(self):

@@ -11,7 +11,7 @@ class BasicStrategy:
   basic_strategy = {
       # ハードハンド
       "hard": {
-        (2, 3, 4, 5, 6, 7, 8):  {1:"h", 2: "h", 3: "h", 4: "h", 5: "h", 6: "h", 7: "h", 8: "h", 9: "h", 10: "h"},
+        (5, 6, 7, 8):  {1:"h", 2: "h", 3: "h", 4: "h", 5: "h", 6: "h", 7: "h", 8: "h", 9: "h", 10: "h"},
         9:  {1:"h", 2: "h", 3: "dd", 4: "dd", 5: "dd", 6: "dd", 7: "h", 8: "h", 9: "h", 10: "h"},
         10: {1:"h", 2: "dd", 3: "dd", 4: "dd", 5: "dd", 6: "dd", 7: "dd", 8: "dd", 9: "dd", 10: "h"},
         11: {1:"h", 2: "dd", 3: "dd", 4: "dd", 5: "dd", 6: "dd", 7: "dd", 8: "dd", 9: "dd", 10: "dd"},
@@ -51,7 +51,7 @@ class BasicStrategy:
     if is_pair:
         return self.basic_strategy["pair"][player_hand][dealer_upcard]
     else:
-        if is_soft:
+        if is_soft and player_hand > 11:
             # softハンドの範囲に基づいてアクションを選択
             if player_hand in self.basic_strategy["soft"]:
                 return self.basic_strategy["soft"][player_hand][dealer_upcard]
@@ -66,7 +66,7 @@ class BasicStrategy:
             if player_hand in self.basic_strategy["hard"]:
                 return self.basic_strategy["hard"][player_hand][dealer_upcard]
             elif 2 <= player_hand <= 8:
-                return self.basic_strategy["hard"][(2, 3, 4, 5, 6, 7, 8)][dealer_upcard]
+                return self.basic_strategy["hard"][(5, 6, 7, 8)][dealer_upcard]
             elif player_hand in (17, 18, 19, 20, 21):
                 return self.basic_strategy["hard"][(17, 18, 19, 20, 21)][dealer_upcard]
 
