@@ -1,0 +1,6 @@
+player_hand,dealer_hand,is_soft_hand,is_pair,Action,Q-Value
+12,1,1,1,st,0.1
+12,2,1,1,dd,0.1
+12,4,1,1,st,0.1
+12,8,1,1,st,0.1
+12,10,1,1,h,0.1

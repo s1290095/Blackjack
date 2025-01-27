@@ -13,7 +13,7 @@ class Discards:
    # 捨てカード群にカードを追加し、ハイローを変化させる 
    def add_card(self, card):
       self.cards.append(card)
-      # カードが2~6の場合は-1, 10以上の場合は+1, それ以外は0とする
+      # カードが2~6の場合は+1, 10以上の場合は-1, それ以外は0とする
       if card.point >= 2 and card.point <= 6 :
          self.high_row += 1
       elif card.point == 10:
@@ -47,6 +47,6 @@ class Discards:
    def get_true_count(self):
       # 残りデッキ数
       deck_num = NUM_DECK*52 # 総デッキ数
-      tmp = (deck_num - len(self.cards)) / 52
+      tmp = (deck_num - len(self.cards)) / 52.0
       rest_deck_num = round(tmp, 1)
       return round(self.high_row / rest_deck_num, 1)

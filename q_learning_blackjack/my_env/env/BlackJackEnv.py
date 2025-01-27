@@ -7,6 +7,14 @@ from my_env.env.BlackJack import Game
 class BlackJackEnv(gym.Env):
     metadata = {'render.mode': ['human', 'ansi']}
 
+    ACTIONS = {
+        0: 'st',  # Stand
+        1: 'h',   # Hit
+        2: 'dd',  # Double down
+        3: 'sr',  # Surrender
+        4: 'sp'   # Split
+    }
+
     def __init__(self):
         super().__init__()
 
@@ -41,10 +49,7 @@ class BlackJackEnv(gym.Env):
 
         observation = self.observe()
 
-        state = observation["state"]
-        bet_state = observation["bet"]
-
-        return state, bet_state
+        return observation
     
     def bet(self, bet):
         
@@ -55,21 +60,10 @@ class BlackJackEnv(gym.Env):
         self.game = Game()
 
     def step(self, action):
-        # action を実行し，結果を返す
-        if action == 0:
-            action_str = 'st'  # Stand
-        elif action == 1:
-            action_str = 'h'  # Hit
-        elif action == 2:
-            action_str = 'dd'  # Double down
-        elif action == 3:
-            action_str = 'sr'  # Surrender
-        elif action == 4:
-            action_str = 'sp'  # Split
-        else:
-            print(action)
-            print("未定義のActionです")
-            print(self.observe())
+        if action not in self.ACTIONS:
+            raise ValueError(f"Undefined action: {action}")
+    
+        action_str = self.ACTIONS[action]
 
         self.game.player_step(action_str)
 
@@ -94,19 +88,10 @@ class BlackJackEnv(gym.Env):
         return state, reward, self.done, {}
     
     def split_step(self, action):
-        # action を実行し，結果を返す
-        if action == 0:
-            action_str = 'st'  # Stand
-        elif action == 1:
-            action_str = 'h'  # Hit
-        elif action == 2:
-            action_str = 'dd'  # Double down
-        elif action == 3:
-            action_str = 'sr'  # Surrender
-        else:
-            print(action)
-            print("未定義のActionです")
-            print(self.observe())
+        if action not in self.ACTIONS:
+            raise ValueError(f"Undefined action: {action}")
+    
+        action_str = self.ACTIONS[action]
 
         self.game.player_split_step(action_str)
 
@@ -172,16 +157,17 @@ class BlackJackEnv(gym.Env):
             return False
 
     def observe(self):
-        observation = {
-            'player_points': self.game.player.hand.calc_final_point(),
-            'dealer_upcard': self.game.dealer.hand.hand[0].get_point(),
-            'is_soft_hand': int(self.game.player.hand.is_soft_hand)
-        }
+        observation = tuple([
+            self.game.player.hand.calc_final_point(),
+            self.game.dealer.hand.hand[0].get_point(),
+            int(self.game.player.hand.is_soft_hand),
+            int(self.game.player.hand.is_pair)
+        ])
 
-        bet_observation = {
-            'true_count': self.game.discards.get_true_count(),
-            'current_bet': self.current_bet
-        }
+        bet_observation = tuple([
+            self.game.discards.get_true_count(),
+            self.current_bet
+        ])
 
         state = {
             "state" : observation,
@@ -191,17 +177,17 @@ class BlackJackEnv(gym.Env):
         return state
     
     def split_observe(self):
-        # 観測値にベット額を含める
-        observation = {
-            'player_points': self.game.player.hand.calc_final_point(),
-            'dealer_upcard': self.game.dealer.hand.hand[0].get_point(),
-            'is_soft_hand': int(self.game.player.hand.is_soft_hand)
-        }
+        observation = tuple([
+            self.game.player.hand.split_hand.calc_final_point(),
+            self.game.dealer.hand.hand[0].get_point(),
+            int(self.game.player.hand.is_soft_hand),
+            int(self.game.player.hand.is_pair)
+        ])
 
-        bet_observation = {
-            'true_count': self.game.discards.get_true_count(),
-            'current_bet': self.current_bet
-        }
+        bet_observation = tuple([
+            self.game.discards.get_true_count(),
+            self.current_bet
+        ])
 
         state = {
             "state" : observation,
