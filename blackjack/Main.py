@@ -48,6 +48,7 @@ def main():
     
     print("BlackJackを終了します")
     print(f"{game.game_count+1}回ゲームをしました")
+    print(f"{player.bj_count}回ブラックジャックが発生しました")
     print(f"{label}の総BET数：{player.chip.balance}, ペイアウト率：{player.get_payput_ratio()}, split回数：{player.split_num}")
     print(f"勝率：{(player.win_num / N)*100}")
     print("")

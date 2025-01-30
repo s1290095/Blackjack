@@ -29,6 +29,7 @@ class Agent():
         self.bet_Q = defaultdict(lambda: [0] * len(range(1, 201)))  # ベット額用のQ値テーブル
         self.epsilon = epsilon  # 探索率
         self.reward_log = []  # 報酬履歴を記録
+        self.split_state = []
         
     def policy(self, state, actions, is_pair):
         """
@@ -109,7 +110,7 @@ class QLearningAgent(Agent):
             else:
                 return np.random.choice(bet_range)
 
-    def learn(self, env, output_interval, episode_count=1000, gamma=0.9, learning_rate=0.01, render=False, report_interval=500):
+    def learn(self, env, output_interval, episode_count=1000, gamma=0.9, learning_rate=0.1, render=False, report_interval=500):
         self.init_log()
         actions = list(range(env.action_space.n))  # 行動数を取得
         self.Q = defaultdict(lambda: [0.1] * len(actions))  # 全体を0.1で初期化
@@ -133,20 +134,19 @@ class QLearningAgent(Agent):
                 action = self.policy(state, actions, env.game.player.hand.is_pair)  # 行動を選択
                 observation, reward, done, _ = env.step(action)  # 行動を環境に適用
 
+                if action == 4:
+                    self.split_state = observation["state"]
+
                 next_state = tuple(observation["state"])
                 bet_next_state = tuple(observation["bet"])
                 q_reward = reward["reward"]
                 bet_reward = reward["bet_reward"]
 
                 # Q値の更新（アクション）
-                gain = q_reward + gamma * max(self.Q[next_state])
-                estimated = self.Q[state][action]
-                self.Q[state][action] += learning_rate * (gain - estimated)
+                self.Q[state][action] += self.update_q_value(q_reward, gamma, self.Q, state, next_state, action, learning_rate)
 
                 # Q値の更新（ベット）
-                gain_bet = bet_reward + gamma * max(self.bet_Q[bet_next_state])
-                estimated_bet = self.bet_Q[bet_state][env.bet_range.index(bet)]
-                self.bet_Q[bet_state][env.bet_range.index(bet)] += learning_rate * (gain_bet - estimated_bet)
+                self.bet_Q[bet_state][env.bet_range.index(bet)] += self.update_q_value(bet_reward, gamma, self.bet_Q, bet_state, bet_next_state, env.bet_range.index(bet), learning_rate)
 
                 state = next_state
                 bet_state = bet_next_state
@@ -154,7 +154,7 @@ class QLearningAgent(Agent):
 
             if env.game.player.hand.is_split:
                 while not env.game.player.hand.split_done:
-                    action = self.policy(state, actions, False)  # 行動を選択 splitは発生させない
+                    action = self.policy(self.split_state, actions, False)  # 行動を選択 splitは発生させない
                     observation, reward, done, _ = env.split_step(action)  # 行動を環境に適用
 
                     next_state = observation["state"]
@@ -163,26 +163,30 @@ class QLearningAgent(Agent):
                     bet_reward = reward["bet_reward"]
 
                     # Q値の更新（アクション）
-                    gain = q_reward + gamma * max(self.Q[next_state])
-                    estimated = self.Q[state][action]
-                    self.Q[state][action] += learning_rate * (gain - estimated)
+                    self.Q[self.split_state][action] += self.update_q_value(q_reward, gamma, self.Q, self.split_state, next_state, action, learning_rate)
 
                     # Q値の更新（ベット）
-                    gain_bet = bet_reward + gamma * max(self.bet_Q[bet_next_state])
-                    estimated_bet = self.bet_Q[bet_state][env.bet_range.index(bet)]
-                    self.bet_Q[bet_state][env.bet_range.index(bet)] += learning_rate * (gain_bet - estimated_bet)
+                    self.bet_Q[bet_state][env.bet_range.index(bet)] += self.update_q_value(bet_reward, gamma, self.bet_Q, bet_state, bet_next_state, env.bet_range.index(bet), learning_rate)
 
-                    state = next_state
+                    self.split_state = next_state
                     bet_state = bet_next_state
                     reward_history.append(q_reward)
-
+                
             self.log(sum(reward_history))
             self.epsilon = max(0.01, self.epsilon * 0.995)  # 探索率を0.01まで減少
 
             if e % report_interval == 0 and e != 0:
                 self.show_reward_log(interval=50, episode=e)
 
-        player = env.game.player
+        self.payout_print(env.game.player, env, output_interval)
+
+    def update_q_value(self, reward, gamma, Q, state, next_state, action, learning_rate):
+        gain = reward + gamma * max(Q[next_state])
+        estimated = Q[state][action]
+        return learning_rate * (gain - estimated)
+
+    def payout_print(self, player, env, output_interval):
+        print(f"{player.bj_count}回ブラックジャックが発生しました")
         print(f"ペイアウト率：{player.get_payput_ratio()}")
         print(f"勝率：{(player.win_num / output_interval)*100}")
         # 戦略エージェントの勝率の割合
@@ -223,8 +227,18 @@ class QLearningAgent(Agent):
                 # actionを行動の文字列に変換
                 action_str = self.ACTIONS[action]
 
+                if states[2] == 0:
+                    is_soft_hand = "False"
+                else:
+                    is_soft_hand = "True"
+
+                if states[3] == 0:
+                    is_pair = "False"
+                else:
+                    is_pair = "True"
+                    
                 # ソート用リストに追加
-                q_table_sorted.append((states[0], states[1], states[2], states[3], action_str, q_value))
+                q_table_sorted.append((states[0], states[1], is_soft_hand, is_pair, action_str, q_value))
 
         # player_hand（states[0]）で昇順にソート
         q_table_sorted.sort(key=lambda x: (x[0], x[1]))
@@ -238,35 +252,6 @@ class QLearningAgent(Agent):
                 writer.writerow(row)
 
         print(f"ソート済みQテーブルを {filepath} に保存しました。")
-
-    # # ハードハンド表の作成
-    # def hard_hand_table(self):
-    #     hard_hand_table = []
-    #     for state, actions in self.Q.items():
-    #         # ソフトハンドではない、かつペアハンドではないこと
-    #         if state[2] == 1 or state[3] == 1:
-    #             continue
-
-    #         # 状態をタプルに変換
-    #         if isinstance(state, str):
-    #             states = tuple(map(int, state.strip("()").split(", ")))
-    #         else:
-    #             states = state
-
-    #         max_q_value = 0
-
-    #         for action, q_value in enumerate(actions):
-    #             if max_q_value < q_value:
-    #                 max_q_value = q_value
-
-    #                 # actionを行動の文字列に変換
-    #                 action_str = self.ACTIONS[action]
-
-
-    #         # ソート用リストに追加
-    #         hard_hand_table.append((states[0], states[1], states[2], states[3], action_str, q_value))
-        
-    #     return hard_hand_table
 
     def save_bet_q_table_to_csv(self):
         """
@@ -312,7 +297,7 @@ def train():
     """
     env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, output_interval=100, episode_count=1000, report_interval=1000)
+    agent.learn(env, output_interval=100000, episode_count=10000000, report_interval=1000)
     agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.save_bet_q_table_to_csv()
     agent.show_reward_log(interval=500)
