@@ -12,34 +12,37 @@ class Hand:
         self.is_blackjack = False
         self.is_split = False  # splitを行ったかどうか
         self.split_done = False # split行動が終了したか
+        self.ace_count = 0
+        self.reduce_count = 0
 
     def add_card(self, card):
         # 手札にカードを加える処理
+        if card.rank == 1:
+            self.ace_count += 1
         self.hand.append(card)
         self.check_soft_hand()
         self.check_pair_hand()
 
     def check_soft_hand(self):
         # ソフトハンド（Aを含む手札）かチェックする
-        if not self.hand:
-            return 
-        if any(card is None for card in self.hand):
-            return 
-        self.is_soft_hand = any(card.rank == 1 for card in self.hand)  # Aが含まれているとソフトハンド
+        self.sum_point()
+        # Aの数が1以上で、Aを11に出来る数が1以上の場合
+        self.is_soft_hand = self.ace_count > 0 and self.reduce_count > 0
 
     def check_blackjack(self):
         if self.sum_point() == 21:
             self.is_blackjack = True
 
     def sum_point(self):
-        if not self.hand:
-            return 0
-        if any(card is None for card in self.hand):
-            return 0
+        # 手札のポイントを計算
+        total = sum(card.point for card in self.hand)
+        self.reduce_count = 0
 
-        total = sum(card.point for card in self.hand if card is not None)
-        if self.is_soft_hand and (total + 10 <= 21):
-            return total + 10
+        # A を11としてカウントできる限り、合計が21を超えないように調整
+        while self.ace_count > 0 and total + 10 <= 21:
+            total += 10  # A のうち1つを11としてカウント
+            self.reduce_count += 1
+
         return total
 
     def calc_final_point(self):
