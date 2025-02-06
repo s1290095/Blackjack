@@ -1,11 +1,12 @@
 from base_package.Deck import Deck
-NUM_DECK = 6
+from GameManager import GameManager
 
 class Discards:
    '''
    既に使用されたカード群
    '''
    def __init__(self):
+      self.game_manager = GameManager()
       self.cards = []
       # 2~6のカードを-1,7~9を0, 10~のカードを+1とする
       self.high_row = 0
@@ -16,7 +17,7 @@ class Discards:
       # カードが2~6の場合は+1, 10以上の場合は-1, それ以外は0とする
       if card.point >= 2 and card.point <= 6 :
          self.high_row += 1
-      elif card.point == 10:
+      elif card.point == 10 or card.point == 1:
          self.high_row -= 1
 
    # 捨てカードのリセット
@@ -26,27 +27,21 @@ class Discards:
 
    #  ハイローの値からBET額を決定する
    def decide_bet(self):
-      true_count = self.get_true_count()
-      print(true_count)
-      if true_count < 0 :
-         return 5
-      elif true_count >= 0 and true_count < 5:
-         return 10
-      elif true_count >= 5 and true_count < 10:
-         return 50
-      elif true_count >= 10 and true_count < 15:
+      high_row_index = self.get_high_row_index()
+      print(high_row_index)
+      if high_row_index <= 2:
          return 100
-      elif true_count >= 15 and true_count < 20:
-         return 150
-      elif true_count >= 20 and true_count < 25:
+      elif high_row_index > 2 and high_row_index <= 6:
+         return 200
+      elif high_row_index > 6 and high_row_index <= 8:
          return 300
-      elif true_count >= 25:
+      elif high_row_index > 8 and high_row_index <= 10:
+         return 400
+      else:
          return 500
       
-   # ハイローを残りデッキ数で割って、トゥルーカウントを算出する
-   def get_true_count(self):
+   # ハイローインデックスを算出
+   def get_high_row_index(self):
       # 残りデッキ数
-      deck_num = NUM_DECK*52 # 総デッキ数
-      tmp = (deck_num - len(self.cards)) / 52.0
-      rest_deck_num = round(tmp, 1)
-      return round(self.high_row / rest_deck_num, 1)
+      unseen_deck_num = self.game_manager.deck_num*52 - len(self.cards) # 使われてないカード数
+      return round(self.high_row / unseen_deck_num, 2) * 100
