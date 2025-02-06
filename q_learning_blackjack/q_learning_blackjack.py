@@ -110,20 +110,18 @@ class QLearningAgent(Agent):
             else:
                 return np.random.choice(bet_range)
 
-    def learn(self, env, output_interval, episode_count=1000, gamma=0.9, learning_rate=0.1, render=False, report_interval=500):
+    def learn(self, env, episode_count=1000, gamma=0.9, learning_rate=0.1, render=False, report_interval=500):
         self.init_log()
         actions = list(range(env.action_space.n))  # 行動数を取得
         self.Q = defaultdict(lambda: [0.1] * len(actions))  # 全体を0.1で初期化
         self.bet_Q = defaultdict(lambda: [0.1] * len(env.bet_range))  # ベット用Qテーブル
 
         for e in range(episode_count):
-            if episode_count - e == output_interval: # output_interval回ごとにゲームをリセット
-                env.new_game()
             observation = env.reset()  # ベット額を環境に設定
             state = observation["state"]
             bet_state = observation["bet"]
             bet = self.bet_policy(bet_state, env.bet_range)  # ベット額を選択
-            env.bet(bet)
+            env.bet(100)
             done = False
             reward_history = []
 
@@ -175,10 +173,57 @@ class QLearningAgent(Agent):
             self.log(sum(reward_history))
             self.epsilon = max(0.01, self.epsilon * 0.995)  # 探索率を0.01まで減少
 
-            if e % report_interval == 0 and e != 0:
+            if e % 1000 == 0 and e != 0:
                 self.show_reward_log(interval=50, episode=e)
 
-        self.payout_print(env.game.player, env, output_interval)
+        self.payout_print(env.game.player, env, episode_count)
+
+    def test(self, env, round_num):
+        self.init_log()
+        env.new_game()
+        actions = list(range(env.action_space.n))  # 行動数を取得
+
+        for e in range(round_num):
+            observation = env.reset()  # ベット額を環境に設定
+            state = observation["state"]
+            bet_state = observation["bet"]
+            bet = self.bet_policy(bet_state, env.bet_range)  # ベット額を選択
+            env.bet(100)
+            done = False
+            reward_history = []
+
+            while not done:
+
+                action = self.policy(state, actions, env.game.player.hand.is_pair)  # 行動を選択
+                observation, reward, done, _ = env.step(action)  # 行動を環境に適用
+
+                if action == 4:
+                    self.split_state = observation["state"]
+
+                next_state = tuple(observation["state"])
+                bet_next_state = tuple(observation["bet"])
+                q_reward = reward["reward"]
+                bet_reward = reward["bet_reward"]
+
+                state = next_state
+                bet_state = bet_next_state
+                reward_history.append(q_reward)
+
+            if env.game.player.hand.is_split:
+                while not env.game.player.hand.split_done:
+                    action = self.policy(self.split_state, actions, False)  # 行動を選択 splitは発生させない
+                    observation, reward, done, _ = env.split_step(action)  # 行動を環境に適用
+
+                    next_state = observation["state"]
+                    bet_next_state = observation["bet"]
+                    q_reward = reward["reward"]
+                    bet_reward = reward["bet_reward"]
+
+                    self.split_state = next_state
+                    bet_state = bet_next_state
+                    reward_history.append(q_reward)
+                
+        self.payout_print(env.game.player, env, round_num)
 
     def update_q_value(self, reward, gamma, Q, state, next_state, action, learning_rate):
         gain = reward + gamma * max(Q[next_state])
@@ -187,7 +232,9 @@ class QLearningAgent(Agent):
 
     def payout_print(self, player, env, output_interval):
         print(f"{player.bj_count}回ブラックジャックが発生しました")
-        print(f"ペイアウト率：{player.get_payput_ratio()}")
+        print(f"{player.surrender_num}回サレンダーしました")
+        print(f"ペイアウト率：{player.get_payput_ratio()}, split回数：{player.split_num}")
+        print(f"win : {player.win_num}, draw : {player.draw_num}, lose : {player.lose_num}")
         print(f"勝率：{(player.win_num / output_interval)*100}")
         # 戦略エージェントの勝率の割合
         fig, ax1 = plt.subplots()
@@ -297,10 +344,13 @@ def train():
     """
     env = gym.make('BlackJack-v3')  # Blackjack環境を作成（カスタム環境を想定）
     agent = QLearningAgent()
-    agent.learn(env, output_interval=100000, episode_count=10000000, report_interval=1000)
+    N = int(input("何回学習するか入力してください："))
+    agent.learn(env, episode_count=N, report_interval=1000)
+    agent.show_reward_log(interval=500)
+    N = int(input("何回テストするか入力してください："))
+    agent.test(env, N)
     agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.save_bet_q_table_to_csv()
-    agent.show_reward_log(interval=500)
 
 if __name__ == "__main__":
     train()

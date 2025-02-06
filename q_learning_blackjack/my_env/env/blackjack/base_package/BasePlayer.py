@@ -19,6 +19,7 @@ class BasePlayer:
         self.lose_num = 0      # 負けた回数
         self.draw_num = 0      # 引き分け回数
         self.split_num = 0
+        self.surrender_num = 0
         self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
         self.bj_count = 0
 
@@ -62,6 +63,7 @@ class BasePlayer:
 
     def surrender(self):
         # Surrender時の処理
+        self.surrender_num += 1
         self.done = True
         self.chip.bet /= 2  # 賭け金の半分が返却される
         self.chip.balance += self.chip.bet
@@ -165,7 +167,6 @@ class BasePlayer:
     def get_payput_ratio(self):
         chip = self.chip
         split_chip = self.split_chip
-        print(f"合計BET額:{chip.total_bet}, 返還額:{chip.total_refund_bet}, split回数:{self.split_num}")
         chip.total_refund_bet += split_chip.total_refund_bet
         chip.total_bet += split_chip.total_bet
         print(f"合計BET額:{chip.total_bet}, 返還額:{chip.total_refund_bet}")
