@@ -19,7 +19,9 @@ class BasePlayer:
         self.lose_num = 0      # 負けた回数
         self.draw_num = 0      # 引き分け回数
         self.split_num = 0
+        self.surrender_num = 0
         self.message_display_flg = False # メッセージ表示フラグ　True：表示、False：非表示
+        self.bj_count = 0
 
     def init_player(self, discards):
         # 手札や各フラグを初期化する
@@ -32,7 +34,7 @@ class BasePlayer:
         self.hit_flag = False
 
     def bet(self):
-        self.chip.bet_chip(bet=10)
+        self.chip.bet_chip(bet=100)
 
     def deal(self, card):
         # 最初に2枚配る処理
@@ -49,6 +51,10 @@ class BasePlayer:
     def stand(self):
         # Stand時の処理
         self.hand.check_blackjack()
+
+        if self.hand.is_blackjack:
+            self.bj_count += 1
+
         self.done = True
 
     def double_down(self, card):
@@ -59,8 +65,11 @@ class BasePlayer:
 
     def surrender(self):
         # Surrender時の処理
+        self.surrender_num += 1
         self.done = True
         self.chip.bet /= 2  # 賭け金の半分が返却される
+        self.chip.balance += self.chip.bet
+        self.chip.total_refund_bet += self.chip.bet
         self.is_surrender = True
 
     def split(self, card):
@@ -80,6 +89,10 @@ class BasePlayer:
 
     def split_stand(self):
         self.hand.split_hand.check_blackjack()
+
+        if self.hand.split_hand.is_blackjack:
+            self.bj_count += 1
+        
         self.hand.split_done = True
 
     def split_double_down(self, card):
@@ -92,6 +105,8 @@ class BasePlayer:
         # Surrender時の処理
         self.hand.split_done = True
         self.split_chip.bet /= 2  # 賭け金の半分の半分が返却される
+        self.split_chip.balance += self.split_chip.bet
+        self.split_chip.total_refund_bet += self.split_chip.bet
         self.is_split_surrender = True
     
     def judge(self, dealer):
@@ -111,7 +126,7 @@ class BasePlayer:
             self.draw_num += 1
             self.judgment = 0
         if self.is_surrender:
-            self.judgement = 0
+            self.judgement = -1
 
         if self.hand.is_split:
             self.split_judge(dealer)
@@ -146,7 +161,7 @@ class BasePlayer:
             self.draw_num += 1
             self.split_judgment = 0
         if self.is_surrender:
-            self.split_judgment = 0
+            self.split_judgment = -1
 
     def split_pay_chip(self):
         # Chipの精算
