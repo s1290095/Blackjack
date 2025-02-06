@@ -259,7 +259,18 @@ class QLearningAgent(Agent):
 
         os.makedirs(folderpath, exist_ok=True)
 
-        filepath = folderpath + "/" + currentHourMinute + ".csv"
+        folderpath = folderpath + "/" + currentHourMinute
+
+        os.makedirs(folderpath, exist_ok=True)
+
+        filepath = folderpath + "/" + "Q_Table.csv"
+
+        # ハードハンドを出力
+        self.create_hand_table(folderpath, False, False)
+        # ソフトハンドを出力
+        self.create_hand_table(folderpath, True, False)
+        # ペアハンドを出力
+        self.create_hand_table(folderpath, False, True)
 
         # ソート用リストを作成
         q_table_sorted = []
@@ -333,6 +344,86 @@ class QLearningAgent(Agent):
             writer = csv.writer(file)
             # ヘッダーの書き込み
             writer.writerow(["true_count", "bet", "Q-Value"])
+            for row in q_table_sorted:
+                writer.writerow(row)
+
+        print(f"ソート済みQテーブルを {filepath} に保存しました。")
+
+    # print_soft_handがTrue...ソフトハンド表を出力
+    # print_pairがTrue...ペアハンド表を出力
+    # どちらもFalse...ハードハンド表を出力
+    def create_hand_table(self, folderpath, print_soft_hand, print_pair):
+        """
+        QテーブルをCSVファイルに保存（player_handでソート済み）
+        """
+        # 現在の日付をファイル名に付与
+        currentHourMinute = datetime.now().strftime("%H%M%S")
+        filepath = ""
+
+        if print_soft_hand:
+            filepath = folderpath + "/" + currentHourMinute + "_soft_hand_table" + ".csv"
+        elif print_pair:
+            filepath = folderpath + "/" + currentHourMinute + "_pair_hand_table" + ".csv"
+        else:
+            filepath = folderpath + "/" + currentHourMinute + "_hard_hand_table" + ".csv"
+
+        os.makedirs(folderpath, exist_ok=True)
+
+        # ソート用リストを作成
+        q_table_sorted = []
+        for state, actions in self.Q.items():
+            # 状態をタプルに変換
+            if isinstance(state, str):
+                states = tuple(map(int, state.strip("()").split(", ")))
+            else:
+                states = state
+
+            if print_soft_hand:
+                # ソフトハンドではない場合スキップ
+                if states[2] != True:
+                    continue
+            elif print_pair:
+                # ペアハンドではない場合スキップ
+                if states[3] != True:
+                    continue
+            else:
+                # ハードハンドではない場合はスキップ
+                if states[2] == True or states[3] == True:
+                    continue
+
+            max_q_value = -99
+            max_states = []
+
+            # actionsの中で最もQ値が高いアクションを抽出
+            for action, q_value in enumerate(actions):
+                if max_q_value < q_value:
+                    max_q_value = q_value
+                    max_states = states
+
+                    # actionを行動の文字列に変換
+                    action_str = self.ACTIONS[action]
+
+            if max_states[2] == 0:
+                is_soft_hand = "False"
+            else:
+                is_soft_hand = "True"
+
+            if max_states[3] == 0:
+                is_pair = "False"
+            else:
+                is_pair = "True"
+                    
+            # ソート用リストに追加 max_states[0] == プレイヤーの手札、[1] == ディーラーのアップカード
+            q_table_sorted.append((max_states[0], max_states[1], is_soft_hand, is_pair, action_str, max_q_value))
+
+        # player_hand（states[0]）で昇順にソート
+        q_table_sorted.sort(key=lambda x: (x[0], x[1]))
+
+        # ソート済みのデータをCSVに保存
+        with open(filepath, mode="w", newline="") as file:
+            writer = csv.writer(file)
+            # ヘッダーの書き込み
+            writer.writerow(["player_hand", "dealer_hand", "is_soft_hand", "is_pair", "Action", "Q-Value"])
             for row in q_table_sorted:
                 writer.writerow(row)
 
