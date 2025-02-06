@@ -203,7 +203,6 @@ class QLearningAgent(Agent):
                 next_state = tuple(observation["state"])
                 bet_next_state = tuple(observation["bet"])
                 q_reward = reward["reward"]
-                bet_reward = reward["bet_reward"]
 
                 state = next_state
                 bet_state = bet_next_state
@@ -438,10 +437,12 @@ def train():
     N = int(input("何回学習するか入力してください："))
     agent.learn(env, episode_count=N, report_interval=1000)
     agent.show_reward_log(interval=500)
-    N = int(input("何回テストするか入力してください："))
-    agent.test(env, N)
     agent.save_q_table_to_csv()  # 学習後にQテーブルを保存
     agent.save_bet_q_table_to_csv()
+    N = int(input("何回テストするか入力してください："))
+    agent.test(env, N)
+    N = int(input("何回テストするか入力してください："))
+    agent.test(env, N)
 
 if __name__ == "__main__":
     train()

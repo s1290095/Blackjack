@@ -130,31 +130,39 @@ class BlackJackEnv(gym.Env):
         return_bet = self.game.pay()
         player = self.game.player
 
-        if player.is_surrender == True:
-            return -0.5, return_bet
+        reward = round(return_bet / 100, 1)
 
-        # 通常の報酬ロジック
-        if player.judgement == 1 and player.hand.is_blackjack:
-            return 1.5, return_bet
-        elif player.hand.is_bust():
-            return -1.5, return_bet
-        return player.judgement, return_bet
+        return reward, return_bet
+
+        # if player.is_surrender == True:
+        #     return -0.5, return_bet
+
+        # # 通常の報酬ロジック
+        # if player.judgement == 1 and player.hand.is_blackjack:
+        #     return 1.5, return_bet
+        # elif player.hand.is_bust():
+        #     return -1.5, return_bet
+        # return player.judgement, return_bet
     
     def get_split_reward(self):
         # 報酬を返す
         player = self.game.player
         player.split_judge(self.game.dealer)
         return_bet = player.split_pay_chip()
+
+        reward = round(return_bet / 100, 1)
+
+        return reward, return_bet
         
-        if player.is_surrender == True:
-            return -0.5, return_bet
+        # if player.is_surrender == True:
+        #     return -0.5, return_bet
         
-        # 通常の報酬ロジック
-        if player.split_judgement == 1 and player.hand.split_hand.is_blackjack:
-            return 1.5, return_bet
-        elif player.hand.split_hand.is_bust():
-            return -1.5, return_bet
-        return player.split_judgement, return_bet
+        # # 通常の報酬ロジック
+        # if player.split_judgement == 1 and player.hand.split_hand.is_blackjack:
+        #     return 1.5, return_bet
+        # elif player.hand.split_hand.is_bust():
+        #     return -1.5, return_bet
+        # return player.split_judgement, return_bet
 
     def is_done(self):
         if self.game.player.done:

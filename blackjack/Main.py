@@ -52,7 +52,7 @@ def main():
     print(f"{player.surrender_num}回サレンダーしました")
     print(f"{label}の総BET数：{player.chip.balance}, ペイアウト率：{player.get_payput_ratio()}, split回数：{player.split_num}")
     print(f"win : {player.win_num}, draw : {player.draw_num}, lose : {player.lose_num}")
-    print(f"勝率：{(player.win_num / N)*100}")
+    print(f"勝率：{(player.win_num / (N + player.split_num))*100}")
     print("")
 
     # 戦略エージェントの総BET数の推移データ
